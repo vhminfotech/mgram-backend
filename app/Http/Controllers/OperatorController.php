@@ -20,7 +20,7 @@ class OperatorController extends Controller
     public function show($id){
         $operators = Operators::find($id);
          
-        if($operators->isEmpty()){
+        if(!isset($operators) || is_null($operators)){
             return array('status'=> 0 , 'message' => 'No Data Found' );
         }else{
             return $operators;
