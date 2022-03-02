@@ -8,11 +8,23 @@ use App\Models\Operators;
 class OperatorController extends Controller
 {
     public function index(){
-        return Operators::all();
+        $operators = Operators::all();
+        
+        if($operators->isEmpty()){
+            return array('status'=> 0 , 'message' => 'No Data Found' );
+        }else{
+            return $operators;
+        }
     }
     
     public function show($id){
-        return Operators::find($id);
+        $operators = Operators::find($id);
+         
+        if($operators->isEmpty()){
+            return array('status'=> 0 , 'message' => 'No Data Found' );
+        }else{
+            return $operators;
+        }
     }
     
     public function store(Request $request){

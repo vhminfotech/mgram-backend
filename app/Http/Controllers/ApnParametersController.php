@@ -8,11 +8,25 @@ use App\Models\APN_Parameters;
 class ApnParametersController extends Controller
 {
     public function index(){
-        return APN_Parameters::all();
+        $ApnParam = APN_Parameters::all();
+        
+        if($ApnParam->isEmpty()){
+            return array('status'=> 0 , 'message' => 'No Data Found' );
+        }else{
+            return $ApnParam;
+        }
     }
     
     public function show($id){
-        return APN_Parameters::find($id);
+        $ApnParam = APN_Parameters::find($id);
+        
+        $ApnParam = APN_Parameters::all();
+        
+        if($ApnParam->isEmpty()){
+            return array('status'=> 0 , 'message' => 'No Data Found' );
+        }else{
+            return $ApnParam;
+        }
     }
     
     public function store(Request $request){
