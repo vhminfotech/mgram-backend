@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\ApnParametersController;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,10 +21,3 @@ Route::get('/', function () {
 });
 
 
-//Operators 
-Route::get('operators',[ OperatorController::class, 'index']);
-Route::get('operator/{id}',[ OperatorController::class, 'show']);
-
-// APN Parameters
-Route::get('apn-params',[ApnParametersController::class, 'index']);
-Route::get('apn-params/{id}',[ ApnParametersController::class, 'show']);

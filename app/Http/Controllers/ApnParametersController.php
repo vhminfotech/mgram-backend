@@ -19,8 +19,7 @@ class ApnParametersController extends Controller
     
     public function show($id){
         $ApnParam = APN_Parameters::find($id);
-        
-        if(!isset($operators) || is_null($operators)){
+        if(!isset($ApnParam) || is_null($ApnParam)){
             return array('status'=> 0 , 'message' => 'No Data Found' );
         }else{
             return $ApnParam;

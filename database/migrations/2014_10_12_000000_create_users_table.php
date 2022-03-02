@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('MSISDN', 50);
             $table->boolean('chat_feature')->default(1);
             $table->boolean('user_status')->default(1);
-            $table->dateTime('last_active', $precision = 0);
+            $table->dateTime('last_active', $precision = 0)->nullable();
             $table->timestamps();
 
             // $table->string('email')->unique();
