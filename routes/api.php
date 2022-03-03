@@ -32,3 +32,4 @@ Route::get('apn-params/{id}',[ ApnParametersController::class, 'show']);
 
 //Login Register
 Route::post('registration',[ UserController::class, 'Registration']);
+Route::delete('deleteusers',[ UserController::class, 'deleteUsers']);

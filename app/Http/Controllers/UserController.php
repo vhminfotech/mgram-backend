@@ -9,11 +9,11 @@ use DB;
 class UserController extends Controller
 {
     public function Registration(Request $request)
-    {  
+    {
         $request->validate([
             'name' => 'required',
             'operator' => 'required',
-            'MSISDN' => 'required',
+            'MSISDN' => 'required|integer',
         ]);
         
         $userCheck = DB::table('users')
@@ -32,12 +32,23 @@ class UserController extends Controller
             if($lastInsId){
                 return array(
                     'status' => 1, 
-                    "user_id" => $objUser->id, 
+                    "user_id" => $objUser->id,
+                    "user_data" => null,
                     "message" => "User Registred Successfully"
                 );
             }
         }else{
-            return $userCheck;
+            return array(
+                    'status' => 1, 
+                    "user_id" => $userCheck[0]->id,
+                    "user_data" => $userCheck,
+                    "message" => "User Login Successfully"
+                );
         }
+    }
+    
+    public function deleteUsers() {
+        $users = DB::table('users')->truncate();
+            return "User Table Turncated Successfully";
     }
 }
