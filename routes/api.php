@@ -6,6 +6,7 @@ use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\ApnParametersController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ColorsController;
+use App\Http\Controllers\AppConfigController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,7 @@ Route::get('apn-params/{id}',[ ApnParametersController::class, 'show']);
 // Colors
 Route::get('colors',[ColorsController::class, 'index']);
 Route::get('color/{id}',[ColorsController::class, 'show']);
+
+//App Config
+Route::get('app_config_all',[AppConfigController::class, 'index']);
+Route::get('app_config',[AppConfigController::class, 'show']);
