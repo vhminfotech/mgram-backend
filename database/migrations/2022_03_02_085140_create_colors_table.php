@@ -15,10 +15,10 @@ class CreateColorsTable extends Migration
     {
         Schema::create('colors', function (Blueprint $table) {
             $table->id();
-            $table->string('color_name', 50);
-            $table->string('color_code', 50);
+            $table->string('name', 50);
+            $table->string('primary_code', 50);
+            $table->string('secondary_code', 50);
             $table->integer('operator_id');
-            $table->string('color_priority', 50);
             $table->softDeletes();
             $table->timestamps();
         });
