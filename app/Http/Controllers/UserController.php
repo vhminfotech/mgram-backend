@@ -21,30 +21,42 @@ class UserController extends Controller
              ->get();
         
         if($userCheck->isEmpty()){
-            $objUser = new User();
-            $objUser->name = $request->name;
-            $objUser->operator = $request->operator;
-            $objUser->MSISDN = $request->MSISDN;
-            $objUser->created_at = date("Y-m-d h:i:s");
-            $objUser->updated_at = date("Y-m-d h:i:s");
-            $lastInsId = $objUser->save();
+            
+            $User= User::create([
+                'name' =>$request->name,
+                'operator'=>$request->operator,
+                'MSISDN'=>$request->MSISDN,
+            ]);
 
-            if($lastInsId){
-                return array(
+            $access_token = $User->createToken('tokens')->accessToken;
+            
+            return response()->json([
                     'status' => 1, 
-                    "user_id" => $objUser->id,
+                    "user_id" => $User->id,
                     "user_data" => null,
+                    "token" => $access_token,
                     "message" => "User Registred Successfully"
-                );
-            }
+                ], 200);
+            
         }else{
-            return array(
+            
+            $User = User::find($userCheck[0]->id);
+            $access_token = $User->createToken('tokens')->accessToken;
+            
+            //now return this token on success login attempt
+            return response()->json([
                     'status' => 1, 
                     "user_id" => $userCheck[0]->id,
                     "user_data" => $userCheck,
+                    "token" => $access_token,
                     "message" => "User Login Successfully"
-                );
+                    ], 200); die();
         }
+    }
+    
+    public function authenticatedUserDetails(){
+        //returns details
+        return response()->json(['authenticated-user' => auth()->user()], 200);
     }
     
     public function deleteUsers() {

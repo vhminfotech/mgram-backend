@@ -23,6 +23,17 @@ use App\Http\Controllers\AppConfigController;
     return $request->user();
 });*/
 
+
+
+//routes/api.php
+//add this middleware to ensure that every request is authenticated
+Route::middleware('auth:api')->group(function(){
+    Route::get('user', [UserController::class,'authenticatedUserDetails']);
+});
+
+
+
+
 //Login Register
 Route::post('registration',[ UserController::class, 'Registration']);
 Route::delete('deleteusers',[ UserController::class, 'deleteUsers']);

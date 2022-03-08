@@ -17,16 +17,15 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name', 100);
             $table->integer('operator');
-            $table->string('MSISDN', 50);
+            $table->string('MSISDN', 50)->unique();
             $table->boolean('chat_feature')->default(1);
             $table->boolean('user_status')->default(1);
             $table->dateTime('last_active', $precision = 0)->nullable();
+            
+            $table->string('email')->nullable();
+            $table->string('password')->nullable();
+            
             $table->timestamps();
-
-            // $table->string('email')->unique();
-            // $table->timestamp('email_verified_at')->nullable();
-            // $table->string('password');
-            // $table->rememberToken();
         });
     }
 
