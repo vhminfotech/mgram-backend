@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->boolean('user_status')->default(1);
             $table->dateTime('last_active', $precision = 0)->nullable();
             
-            $table->string('email')->nullable();
-            $table->string('password')->nullable();
+//            $table->string('email')->nullable();
+//            $table->string('password')->nullable();
             
             $table->timestamps();
         });
