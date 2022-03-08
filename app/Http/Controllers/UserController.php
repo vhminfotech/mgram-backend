@@ -54,11 +54,6 @@ class UserController extends Controller
         }
     }
     
-    public function authenticatedUserDetails(){
-        //returns details
-        return response()->json(['authenticated-user' => auth()->user()], 200);
-    }
-    
     public function deleteUsers() {
         $users = DB::table('users')->truncate();
             return "User Table Turncated Successfully";
