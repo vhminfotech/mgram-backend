@@ -1,18 +1,7 @@
 @extends('backend.layout.app')
 @section('title', 'Dashboard')
 
-@section('header')
-<!-- apexcharts -->
-<script src="{{asset('public/backend/libs/apexcharts/apexcharts.min.js')}}"></script>
-<!-- dashboard init -->
-<script src="{{asset('public/backend/js/pages/dashboard.init.js')}}"></script>
-@endsection
-
-@section('footer')
-@endsection
-
 @section('content')
-
 <div class="page-content">
     <div class="container-fluid">
     <!-- start page title -->
@@ -73,5 +62,16 @@
         </div>
     </div>
 </div>
-
 @endsection
+
+
+@section('header')
+<!-- apexcharts -->
+<script src="{{asset('public/backend/libs/apexcharts/apexcharts.min.js')}}"></script>
+<!-- dashboard init -->
+<script src="{{asset('public/backend/js/pages/dashboard.init.js')}}"></script>
+@endsection
+
+@section('footer')
+@endsection
+

@@ -1,6 +1,60 @@
 @extends('backend.layout.app')
 @section('title', "User's List")
 
+@section('content')
+<div class="page-content">
+    <div class="container-fluid">
+    <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">User's List</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Operator</th>
+                                    <th>MSISDN</th>
+                                    <th>Chat Feature</th>
+                                    <th>Status</th>
+                                    <th>Last Active</th>
+                                    <th>Created at</th>
+                                </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    @if(!empty($user_data))
+                                    @foreach($user_data as $value)
+                                    
+                                    <tr>
+                                        <td>{{$value->name}}</td>
+                                        <td>{{$value->operator_name}}</td>
+                                        <td>{{$value->MSISDN}}</td>
+                                        <td>{{$value->chat_feature == '1' ? 'Enabled' : 'Disabled'}}</td>
+                                        <td>{{$value->user_status == '1' ? 'Active' : 'Inactive' }}</td>
+                                        <td>{{$value->last_active}}</td>
+                                        <td>{{date("d-m-Y -- H:i:s", strtotime($value->created_at))}}</td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
 @section('header')
 <!-- DataTables -->
 <link href="public/backend/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
@@ -30,69 +84,4 @@
 
 <!-- Datatable init js -->
 <script src="public/backend/js/pages/datatables.init.js"></script>  
-@endsection
-
-
-@section('content')
-
-<div class="page-content">
-    <div class="container-fluid">
-    <!-- start page title -->
-        <div class="row">
-            <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">User's List</h4>
-                </div>
-            </div>
-        </div>
-        <!-- end page title -->
-       
-            <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-        
-                                        <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
-                                            <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Operator</th>
-                                                <th>MSISDN</th>
-                                                <th>Chat Feature</th>
-                                                <th>Status</th>
-                                                <th>Last Active</th>
-                                                <th>Created at</th>
-                                            </tr>
-                                            </thead>
-        
-        
-                                            <tbody>
-                                           
-                                            @if(!empty($user_data))
-                                            @foreach($user_data as $value)
-                                            
-                                            <tr>
-                                                <td>{{$value->name}}</td>
-                                                <td>{{$value->operator_name}}</td>
-                                                <td>{{$value->MSISDN}}</td>
-                                                <td>{{$value->chat_feature == '1' ? 'Enabled' : 'Disabled'}}</td>
-                                                <td>{{$value->user_status == '1' ? 'Active' : 'Inactive' }}</td>
-                                                <td>{{$value->last_active}}</td>
-                                                <td>{{date("d-m-Y -- H:i:s", strtotime($value->created_at))}}</td>
-                                            </tr>
-                                            
-                                            @endforeach
-                                            @endif
-                                            
-                                            
-                                            </tbody>
-                                        </table>
-        
-                                    </div>
-                                </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row -->
-    </div>
-</div>
-
 @endsection
