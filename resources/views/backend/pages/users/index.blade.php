@@ -40,7 +40,7 @@
                                         <td>{{$value->MSISDN}}</td>
                                         <td>{{$value->chat_feature == '1' ? 'Enabled' : 'Disabled'}}</td>
                                         <td>{{$value->user_status == '1' ? 'Active' : 'Inactive' }}</td>
-                                        <td>{{$value->last_active}}</td>
+                                        <td>{{$value->last_active == '' ? 'Not Available' : date("d-m-Y -- H:i:s", strtotime($value->last_active))}}</td>
                                         <td>{{date("d-m-Y -- H:i:s", strtotime($value->created_at))}}</td>
                                     </tr>
                                     @endforeach
