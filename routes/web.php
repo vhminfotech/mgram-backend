@@ -16,6 +16,16 @@ use App\Http\Controllers\IndexController;
 |
 */
 
+
+Route::get('clear', function () {
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode1 = Artisan::call('route:clear');
+    $exitCode2 = Artisan::call('config:clear');
+    $exitCode3 = Artisan::call('view:clear');
+    return '<h1>cache route config view cleared</h1>';
+});
+
+
 Route::get('/', [IndexController::class, 'index'])->name('dashboard');
 Route::get('users', [UserController::class, 'index']);
 
@@ -26,3 +36,7 @@ Route::get('login', function(){
 Route::get('register', function(){
     return view('backend.pages.auth.register');
 });
+
+//Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
+//    
+//});
