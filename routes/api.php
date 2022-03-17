@@ -19,12 +19,6 @@ use App\Http\Controllers\AppConfigController;
 |
 */
 
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
-
-
-
 //routes/api.php
 //add this middleware to ensure that every request is authenticated
 Route::middleware('auth:api')->group(function(){
@@ -32,8 +26,6 @@ Route::middleware('auth:api')->group(function(){
 // Colors
 Route::get('colors',[ColorsController::class, 'index']);
 Route::get('color/{id}',[ColorsController::class, 'show']);
-
-
 
 });
 

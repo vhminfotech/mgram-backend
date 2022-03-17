@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'admins',
     ],
 
     /*
@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'admins',
         ],
         
         'api' => [
@@ -69,6 +69,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -98,6 +103,7 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+    
     ],
 
     /*
