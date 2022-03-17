@@ -54,8 +54,8 @@ return [
     |
     */
 
-//    'asset_url' => '../public',
-    'asset_url' => 'http://localhost/mgram-backend/public',
+    'asset_url' => null,
+    //'asset_url' => 'http://localhost/mgram-backend/public',
 
     /*
     |--------------------------------------------------------------------------
