@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Register | Mgram Backend</title>
+    <title>Register | Mgram /backend</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('public/backend/images/favicon.png')}}">
+    <link rel="shortcut icon" href="{{asset('/backend/images/favicon.png')}}">
     <!-- Bootstrap Css -->
-    <link href="{{asset('public/backend/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="{{asset('/backend/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
-    <link href="{{asset('public/backend/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('/backend/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
-    <link href="{{asset('public/backend/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+    <link href="{{asset('/backend/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
     <style>
         .card-body.pt-0 {
             padding-top: 20px !important;
@@ -66,12 +66,12 @@
     </div>
     <!-- end account-pages -->
     <!-- JAVASCRIPT -->
-    <script src="{{asset('public/backend/libs/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('public/backend/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('public/backend/libs/metismenu/metisMenu.min.js')}}"></script>
-    <script src="{{asset('public/backend/libs/simplebar/simplebar.min.js')}}"></script>
-    <script src="{{asset('public/backend/libs/node-waves/waves.min.js')}}"></script>
+    <script src="{{asset('/backend/libs/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('/backend/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('/backend/libs/metismenu/metisMenu.min.js')}}"></script>
+    <script src="{{asset('/backend/libs/simplebar/simplebar.min.js')}}"></script>
+    <script src="{{asset('/backend/libs/node-waves/waves.min.js')}}"></script>
     <!-- App js -->
-    <script src="{{asset('public/backend/js/app.js')}}"></script>
+    <script src="{{asset('/backend/js/app.js')}}"></script>
 </body>
 </html>

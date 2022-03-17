@@ -28,21 +28,8 @@ Route::get('clear', function () {
 
 Route::get('/', [IndexController::class, 'redirect']);
 
-//Route::get('/', [IndexController::class, 'index'])->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+              Route::get('/dashboard', [IndexController::class, 'index'])->name('dashboard');
 Route::get('users', [UserController::class, 'index']);
+});
 
-//Route::get('login', function(){
-//    return view('backend.pages.auth.login');
-//});
-//
-//Route::get('register', function(){
-//    return view('backend.pages.auth.register');
-//});
-
-//Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
-//    
-//});
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');

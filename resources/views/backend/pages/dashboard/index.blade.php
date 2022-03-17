@@ -1,4 +1,4 @@
-@extends('backend.layout.app')
+@extends('/backend.layout.app')
 @section('title', 'Dashboard')
 
 @section('content')
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <div class="col-5 align-self-end">
-                                <img src="{{asset('public/backend/images/profile-img.png')}}" alt="" class="img-fluid">
+                                <img src="{{asset('/backend/images/profile-img.png')}}" alt="" class="img-fluid">
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="avatar-md profile-user-wid mb-4">
-                                    <img src="{{asset('public/backend/images/users/avatar-1.jpg')}}" alt="" class="img-thumbnail rounded-circle">
+                                    <img src="{{asset('/backend/images/users/avatar-1.jpg')}}" alt="" class="img-thumbnail rounded-circle">
                                 </div>
                                     <h5 class="font-size-15 text-truncate">Henry Price</h5>
                                     <p class="text-muted mb-0 text-truncate">UI/UX Designer</p>
@@ -66,10 +66,8 @@
 
 
 @section('header')
-<!-- apexcharts -->
-<script src="{{asset('public/backend/libs/apexcharts/apexcharts.min.js')}}"></script>
 <!-- dashboard init -->
-<script src="{{asset('public/backend/js/pages/dashboard.init.js')}}"></script>
+<script src="{{asset('/backend/js/pages/dashboard.init.js')}}"></script>
 @endsection
 
 @section('footer')

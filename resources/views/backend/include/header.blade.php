@@ -6,12 +6,12 @@
         @yield('header')
         
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{asset('public/backend/images/favicon.png')}}">
+        <link rel="shortcut icon" href="{{asset('/backend/images/favicon.png')}}">
         <!-- Bootstrap Css -->
-        <link href="{{asset('public/backend/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <link href="{{asset('/backend/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
-        <link href="{{asset('public/backend/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('/backend/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- App Css-->
-        <link href="{{asset('public/backend/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+        <link href="{{asset('/backend/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
 
     </head>
