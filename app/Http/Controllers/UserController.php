@@ -14,7 +14,7 @@ class UserController extends Controller
                 ->get(['users.*', 'operators.operator_name']);
         $user_data = $user_data->all();
         $data = compact('user_data');
-        return view('backend.pages.users.index')->with($data);
+        return view('pages.users.index')->with($data);
     }
     
     public function Registration(Request $request)

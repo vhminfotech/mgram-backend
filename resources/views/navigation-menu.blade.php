@@ -53,6 +53,17 @@
                         </x-jet-dropdown>
                     </div>
                 @endif
+                
+                @if(\Request::route()->getName() == 'profile.show')
+                <div class="ml-3 relative">
+                    <span class="inline-flex rounded-md">
+                        <a href="{{route('dashboard')}}"> <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                            Dashboard
+                            </button> </a>
+                    </span>
+                </div>
+                @endif
+                
 
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">

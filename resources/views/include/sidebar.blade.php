@@ -23,6 +23,23 @@
                             <li><a href="{{ url('users') }}" key="t-editable-table">User's List</a></li>
                         </ul>
                     </li>
+                    
+<!--                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bx-user"></i>
+                            <span key="t-tables">Profile</span>
+                        </a>
+                        <ul class="sub-menu mm-collapse" aria-expanded="false">
+                            <li><a href="{{ route('profile.show') }}" key="t-editable-table">Profile</a></li>
+                            <li> <form method="POST" action="{{ route('logout') }}" x-data>  @csrf
+                                <a href="{{ route('logout') }}"
+                                         @click.prevent="$root.submit();">
+                                    {{ __('Log Out') }}
+                                </a>
+                            </form></li>
+                        </ul>
+                    </li>-->
+                    
                 </ul>
             </div>
         </div>
