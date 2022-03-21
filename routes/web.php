@@ -29,7 +29,11 @@ Route::get('clear', function () {
 Route::get('/', [IndexController::class, 'redirect']);
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-              Route::get('/dashboard', [IndexController::class, 'index'])->name('dashboard');
-Route::get('users', [UserController::class, 'index']);
+    Route::get('/dashboard', [IndexController::class, 'index'])->name('dashboard');
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/apnlist', [ApnParametersController::class, 'ApnListIndex']);
+    Route::get('/editapn', [ApnParametersController::class, 'editApnForm']);
+    Route::post('/editapn', [ApnParametersController::class, 'editApn']);
+    
 });
 

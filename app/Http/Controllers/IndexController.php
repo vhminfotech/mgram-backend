@@ -10,13 +10,11 @@ class IndexController extends Controller
     
     public function redirect() {
         if(Auth::id()){
-//            return view('backend.pages.dashboard.index');
-            return view('dashboard');
+            return redirect('/dashboard');
         }else{
             return redirect('/login');
         }
     }
-    
     
     public function index() {
         return view('pages.dashboard.index');

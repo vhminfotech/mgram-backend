@@ -24,6 +24,17 @@
                         </ul>
                     </li>
                     
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bx-user"></i>
+                            <span key="t-tables">APN</span>
+                        </a>
+                        <ul class="sub-menu mm-collapse" aria-expanded="false">
+                            <li><a href="{{ url('apnlist') }}" key="t-editable-table">APN List</a></li>
+                            <li><a href="{{ url('editapn') }}" key="t-editable-table">Edit APN</a></li>
+                        </ul>
+                    </li>
+                    
 <!--                    <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="bx bx-user"></i>
