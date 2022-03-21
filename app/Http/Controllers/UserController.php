@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserMeta;
 use DB;
 
 class UserController extends Controller
@@ -17,8 +18,7 @@ class UserController extends Controller
         return view('pages.users.index')->with($data);
     }
     
-    public function Registration(Request $request)
-    {
+    public function Registration(Request $request){
         $request->validate([
             'name' => 'required',
             'operator' => 'required',
@@ -35,6 +35,11 @@ class UserController extends Controller
                 'name' =>$request->name,
                 'operator'=>$request->operator,
                 'MSISDN'=>$request->MSISDN,
+            ]);
+            
+            $objUserMeta = new UserMeta();
+            $result = $objUserMeta->addUserMeta([
+                'user_id' => $User->id
             ]);
 
             $access_token = $User->createToken('tokens')->accessToken;

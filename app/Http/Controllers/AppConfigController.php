@@ -20,8 +20,6 @@ class AppConfigController extends Controller
     
     public function show(Request $request){
         if($request->config_name !== null){
-                    
-
             $app_config = DB::table('app_config')
              ->where('config_name', '=', $request->config_name)
              ->get();
@@ -31,7 +29,6 @@ class AppConfigController extends Controller
             }else{
                 return $app_config;
             }
-
         }else {
             return "config_name is required field";
         }
