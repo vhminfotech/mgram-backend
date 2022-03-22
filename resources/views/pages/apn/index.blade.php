@@ -2,6 +2,17 @@
 @section('title', "APN List")
 
 @section('content')
+<link href="{{asset('/backend/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+<style>
+
+/* Important part */
+
+.modal-body{
+    height: 60vh;
+    overflow-y: auto;
+}
+    
+</style>
 <div class="page-content">
     <div class="container-fluid">
     <!-- start page title -->
@@ -20,11 +31,11 @@
                         <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>APN</th>
-                                    <th>Operator</th>
-                                    <th>Created at</th>
-                                    <th>Action</th>
+                                    <th style="text-align:center">Name</th>
+                                    <th style="text-align:center">APN</th>
+                                    <th style="text-align:center">Operator</th>
+                                    <th style="text-align:center">Created at</th>
+                                    <th style="text-align:center">Action</th>
                                 </tr>
                                 </thead>
                                 
@@ -33,16 +44,19 @@
                                     @foreach($apn_data as $value)
                                     
                                     <tr>
-                                        <td>{{$value->apn_name}}</td>
-                                        <td>{{$value->apn}}</td>
-                                        <td>{{$value->operator_name}}</td>
-                                        <td>{{date("d-m-Y -- H:i:s", strtotime($value->created_at))}}</td>
-                                        <td>
-                                            <a class="btn btn-outline-secondary btn-sm edit" title="View">
+                                        <td style="text-align:center">{{$value->apn_name}}</td>
+                                        <td style="text-align:center">{{$value->apn}}</td>
+                                        <td style="text-align:center">{{$value->operator_name}}</td>
+                                        <td style="text-align:center">{{date("d-m-Y -- H:i:s", strtotime($value->created_at))}}</td>
+                                        <td style="text-align:center">
+                                            <a class="btn btn-outline-secondary btn-sm view_apn" data-id="{{$value->id}}" title="View">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                            <a href="{{url("editapn", $value->id)}}" class="btn btn-outline-secondary btn-sm" title="Edit">
                                                 <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                            <a class="btn btn-outline-secondary btn-sm" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -57,35 +71,57 @@
         </div>
     </div>
 </div>
+
+<!-- Transaction Modal -->
+<div id="apnModal" class="modal fade transaction-detailModal" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="transaction-detailModalLabel">APN Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal -->
 @endsection
 
 @section('header')
 <!-- DataTables -->
-<link href="/backend/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-<link href="/backend/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-
- <!-- Responsive datatable examples -->
-<link href="/backend/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />     
+<link href="{{asset('/backend/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('footer')
 <!-- Required datatable js -->
-<script src="/backend/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/backend/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{asset('/backend/libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('/backend/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <!-- Buttons examples -->
-<script src="/backend/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="/backend/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="/backend/libs/jszip/jszip.min.js"></script>
-<script src="/backend/libs/pdfmake/build/pdfmake.min.js"></script>
-<script src="/backend/libs/pdfmake/build/vfs_fonts.js"></script>
-<script src="/backend/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="/backend/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="/backend/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-        
-<!-- Responsive examples -->
-<script src="/backend/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="/backend/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="{{asset('/backend/libs/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('/backend/js/pages/datatables.init.js')}}"></script>  
 
-<!-- Datatable init js -->
-<script src="/backend/js/pages/datatables.init.js"></script>  
+<script>
+$('.view_apn').click(function(){
+    
+    var id = $(this).attr("data-id");
+    var modelBody=$('.modal-body');
+     
+    $.ajax({
+        type: "POST",
+        headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()},
+        url: baseurl + "ajaxGetApn",
+        data: {'id': id},
+        success: function (html) {
+            modelBody.empty();
+            modelBody.append(html);
+            $('#apnModal').modal('show');
+        }
+    });
+});
+</script>
 @endsection

@@ -31,7 +31,7 @@
                         </a>
                         <ul class="sub-menu mm-collapse" aria-expanded="false">
                             <li><a href="{{ url('apnlist') }}" key="t-editable-table">APN List</a></li>
-                            <li><a href="{{ url('editapn') }}" key="t-editable-table">Edit APN</a></li>
+                            <li><a href="{{ url('addApn') }}" key="t-editable-table">Add APN</a></li>
                         </ul>
                     </li>
                     
