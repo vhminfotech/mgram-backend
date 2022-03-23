@@ -35,6 +35,17 @@
                         </ul>
                     </li>
                     
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bx-user"></i>
+                            <span key="t-tables">Operator</span>
+                        </a>
+                        <ul class="sub-menu mm-collapse" aria-expanded="false">
+                            <li><a href="{{ url('operatorlist') }}" key="t-editable-table">Operator List</a></li>
+                            <li><a href="{{ url('addOperator') }}" key="t-editable-table">Add Operator</a></li>
+                        </ul>
+                    </li>
+                    
 <!--                    <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="bx bx-user"></i>

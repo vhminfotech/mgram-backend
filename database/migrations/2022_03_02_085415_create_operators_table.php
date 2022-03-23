@@ -16,7 +16,7 @@ class CreateOperatorsTable extends Migration
         Schema::create('operators', function (Blueprint $table) {
             $table->id();
             $table->string('operator_name', 50);
-            $table->string('operator_logo', 50);
+            $table->string('operator_logo', 255);
             $table->boolean('active_status');
             $table->softDeletes();
             $table->timestamps();

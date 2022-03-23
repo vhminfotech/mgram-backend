@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\APN_Parameters;
 use App\Models\Operators;
 use DB;
-class ApnParametersController extends Controller
-{
+class ApnParametersController extends Controller {
+    
     public function index(){
         $ApnParam = APN_Parameters::all();
         

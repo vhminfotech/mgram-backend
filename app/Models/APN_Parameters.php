@@ -34,6 +34,7 @@ class APN_Parameters extends Model
         $objApn->bearer = $request->bearer;
         $objApn->mvno_type = $request->mvno_type;
         $objApn->mvno_value = $request->mvno_value;
+        $objApn->created_at = date("Y-m-d h:i:s");
         $objApn->updated_at = date("Y-m-d h:i:s");
         return $objApn->save();
     }

@@ -17,16 +17,30 @@ Route::get('clear', function () {
 Route::get('/', [IndexController::class, 'redirect']);
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/dashboard', [IndexController::class, 'index'])->name('dashboard');
-    Route::get('/users', [UserController::class, 'index']);
-    Route::get('/apnlist', [ApnParametersController::class, 'ApnListIndex']);
-    Route::get('/editapn/{id}', [ApnParametersController::class, 'editApnForm']);
-    Route::post('/editapn/{id}', [ApnParametersController::class, 'editApn']);
-    Route::get('/addApn', [ApnParametersController::class, 'addApnForm']);
-    Route::post('/addApn', [ApnParametersController::class, 'addApn']);
+    Route::get('dashboard', [IndexController::class, 'index'])->name('dashboard');
+    Route::get('users', [UserController::class, 'index']);
     
-    Route::post('/ajaxDeleteApn', [ApnParametersController::class, 'deleteApn']);
+    //APN
+    Route::get('apnlist', [ApnParametersController::class, 'ApnListIndex']);
+    Route::get('addApn', [ApnParametersController::class, 'addApnForm']);
+    Route::post('addApn', [ApnParametersController::class, 'addApn']);
+    Route::get('editapn/{id}', [ApnParametersController::class, 'editApnForm']);
+    Route::post('editapn/{id}', [ApnParametersController::class, 'editApn']);
     
-    Route::post('/ajaxGetApn', [ApnParametersController::class, 'ajaxGetAPN']);
+    //Operators
+    Route::get('operatorlist', [OperatorController::class, 'OperatorListIndex']);
+    Route::get('addOperator', [OperatorController::class, 'addOperatorForm']);
+    Route::post('addOperator', [OperatorController::class, 'addOperator']);
+    Route::get('editOperator/{id}', [OperatorController::class, 'editOperatorForm']);
+    Route::post('editOperator/{id}', [OperatorController::class, 'editOperator']);
+    
+    //AJAX ROUTES
+    
+    //APN
+    Route::post('ajaxGetApn', [ApnParametersController::class, 'ajaxGetAPN']);
+    Route::post('ajaxDeleteApn', [ApnParametersController::class, 'deleteApn']);
+    //Operators
+    Route::post('ajaxGetOperators', [OperatorController::class, 'ajaxGetOperators']);
+    Route::post('ajaxDeleteOperator', [OperatorController::class, 'deleteOperator']);
 });
 

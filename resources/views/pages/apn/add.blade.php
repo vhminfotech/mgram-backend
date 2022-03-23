@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', "Edit APN")
+@section('title', "Add APN")
 
 @section('content')
 
