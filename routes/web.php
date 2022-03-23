@@ -22,8 +22,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/apnlist', [ApnParametersController::class, 'ApnListIndex']);
     Route::get('/editapn/{id}', [ApnParametersController::class, 'editApnForm']);
     Route::post('/editapn/{id}', [ApnParametersController::class, 'editApn']);
-    Route::get('/addApn/', [ApnParametersController::class, 'addApnForm']);
-    Route::post('/addApn/', [ApnParametersController::class, 'addApn']);
+    Route::get('/addApn', [ApnParametersController::class, 'addApnForm']);
+    Route::post('/addApn', [ApnParametersController::class, 'addApn']);
+    
+    Route::post('/ajaxDeleteApn', [ApnParametersController::class, 'deleteApn']);
     
     Route::post('/ajaxGetApn', [ApnParametersController::class, 'ajaxGetAPN']);
 });

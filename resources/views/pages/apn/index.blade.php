@@ -49,13 +49,13 @@
                                         <td style="text-align:center">{{$value->operator_name}}</td>
                                         <td style="text-align:center">{{date("d-m-Y -- H:i:s", strtotime($value->created_at))}}</td>
                                         <td style="text-align:center">
-                                            <a class="btn btn-outline-secondary btn-sm view_apn" data-id="{{$value->id}}" title="View">
+                                            <a class="btn btn-outline-secondary btn-sm" id="view_apn" data-id="{{$value->id}}" title="View">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                             <a href="{{url("editapn", $value->id)}}" class="btn btn-outline-secondary btn-sm" title="Edit">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
-                                            <a class="btn btn-outline-secondary btn-sm" title="Delete">
+                                            <a class="btn btn-outline-secondary btn-sm" id="delete_apn" data-id="{{$value->id}}" title="Delete">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>
@@ -95,6 +95,8 @@
 @section('header')
 <!-- DataTables -->
 <link href="{{asset('/backend/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+<!-- Sweet Alert-->
+<link href="{{asset('/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('footer')
@@ -104,13 +106,15 @@
 <!-- Buttons examples -->
 <script src="{{asset('/backend/libs/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
 <script src="{{asset('/backend/js/pages/datatables.init.js')}}"></script>  
+<!-- Sweet Alerts js -->
+<script src="{{asset('/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
 <script>
-$('.view_apn').click(function(){
-    
+
+var table =  $("#datatable").DataTable();
+$(document).on('click', '#view_apn', function(){
     var id = $(this).attr("data-id");
     var modelBody=$('.modal-body');
-     
     $.ajax({
         type: "POST",
         headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()},
@@ -123,5 +127,36 @@ $('.view_apn').click(function(){
         }
     });
 });
+
+$(document).on('click', '#delete_apn', function(){
+    var id = $(this).attr("data-id");
+    var row = $(this).closest('tr');
+    Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: !0,
+          confirmButtonColor: "#34c38f",
+          cancelButtonColor: "#f46a6a",
+          confirmButtonText: "Yes, delete it!",
+        }).then(function (respose) {
+            if(respose.isConfirmed){
+                $.ajax({
+                    type: "POST",
+                    headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()},
+                    url: baseurl + "ajaxDeleteApn",
+                    data: {'id': id},
+                    success: function (response) {
+                        if(response == 1){
+                            Swal.fire("Deleted!", "Your record has been deleted.", "success");
+                            table.row( row ).remove().draw();
+                        }else{
+                            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                        }
+                    }
+                });
+            }
+        });
+    });
 </script>
 @endsection

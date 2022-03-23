@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\APN_Parameters;
 use App\Models\Operators;
-
+use DB;
 class ApnParametersController extends Controller
 {
     public function index(){
@@ -48,7 +48,12 @@ class ApnParametersController extends Controller
     
     public function addApnForm(Request $request) {
         // get Operators
-        $operators = Operators::all();
+        $operators = DB::table('operators')
+                ->select('operators.*')
+                ->leftJoin('apn_parameter', 'apn_parameter.operator', '=', 'operators.id')
+                ->whereNull('apn_parameter.operator')
+                ->orWhereNotNull('apn_parameter.deleted_at')
+                ->get();
         
         $data = compact('operators');
         return view('pages.apn.add')->with($data);
@@ -68,8 +73,13 @@ class ApnParametersController extends Controller
         $apn_data = $apn_data->all();
         
         // get Operators
-        $operators = Operators::all();
-        
+        $operators = DB::table('operators')
+                ->select('operators.*')
+                ->leftJoin('apn_parameter', 'apn_parameter.operator', '=', 'operators.id')
+                ->whereNull('apn_parameter.operator')
+                ->orWhereNotNull('apn_parameter.deleted_at')
+                ->get();
+    
         $data = compact('apn_data', 'operators');
         return view('pages.apn.edit')->with($data);
     }
@@ -80,14 +90,18 @@ class ApnParametersController extends Controller
         return redirect()->back();
     }
     
+    public function deleteApn(Request $request){
+        APN_Parameters::find($request->id)->delete();
+        return true;
+    }
+    
     public function ajaxGetAPN(Request $request){
         $apn_data = APN_Parameters::join('operators', 'operators.id', '=', 'apn_parameter.operator')
                     ->where('apn_parameter.id', $request->id)
                     ->get(['apn_parameter.*', 'operators.operator_name']);
+        
         $apn_data = $apn_data->all();
-        $data = '<div class="table-responsive">
-                    <table class="table align-middle table-nowrap">
-                        <tbody>';
+        $data = '<div class="table-responsive"><table class="table align-middle table-nowrap"><tbody>';
         $data .= '<tr><th scope="row">Operator</th><td>' . $apn_data[0]->operator_name .'</td></tr>';
         $data .= '<tr><th scope="row">APN Name</th><td>' . $apn_data[0]->apn_name .'</td></tr>';
         $data .= '<tr><th scope="row">APN</th><td>' . $apn_data[0]->apn .'</td></tr>';
@@ -109,22 +123,8 @@ class ApnParametersController extends Controller
         $data .= '<tr><th scope="row">MVNO Value</th><td>' . $apn_data[0]->mvno_value .'</td></tr>';
         $data .= '<tr><th scope="row">Created At</th><td>' . date("d-m-Y -- H:i:s", strtotime($apn_data[0]->created_at)) .'</td></tr>';
         $data .= '<tr><th scope="row">Updated At</th><td>' . date("d-m-Y -- H:i:s", strtotime($apn_data[0]->updated_at)) .'</td></tr>';
-        
-        $data .= '</tbody>
-                    </table>
-                </div>';
-        
+        $data .= '</tbody></table></div>';
         return $data;
     }
     
-    
-    
-    
-//    public function delete(Request $request, $id)
-//    {
-//        $ApnParam = APN_Parameters::findOrFail($id);
-//        $ApnParam->delete();
-//
-//        return 204;
-//    }
 }
