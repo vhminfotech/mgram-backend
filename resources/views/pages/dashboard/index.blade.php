@@ -13,7 +13,7 @@
             </div>
         </div>
         <!-- end page title -->
-        <div class="row">
+<!--        <div class="row">
             <div class="col-xl-4">
                 <div class="card overflow-hidden">
                     <div class="bg-primary bg-soft">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 </div>
 @endsection
