@@ -48,7 +48,7 @@
                                             <img src="{{$value->operator_logo}}" alt="{{$value->operator_name}}" title="{{$value->operator_name}}" class="rounded mr-3" height="40">
                                         </td>
                                         <td style="text-align:center">{{$value->operator_name}}</td>
-                                        <td style="text-align:center">{{$value->active_status}}</td>
+                                        <td style="text-align:center">{{$value->active_status == 1 ? 'Active' : 'Inactive' }}</td>
                                         <td style="text-align:center">{{date("d-m-Y -- H:i:s", strtotime($value->created_at))}}</td>
                                         <td style="text-align:center">
                                             <a class="btn btn-outline-secondary btn-sm" id="view_apn" data-id="{{$value->id}}" title="View">

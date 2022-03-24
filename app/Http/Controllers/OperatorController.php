@@ -49,13 +49,15 @@ class OperatorController extends Controller {
     
     
     public function ajaxGetOperators(Request $request){
-        $operator_data = Operators::all();
+        $operator_data = Operators::find($request->id);
+        
+        $active_status = $operator_data->active_status == 1 ? 'Active' : 'Inactive';
         $data = '<div class="table-responsive"><table class="table align-middle table-nowrap"><tbody>';
-        $data .= '<tr><th scope="row" style="text-align:center">Icon</th><td style="text-align:center"><img src="'. $operator_data[0]->operator_logo .'"title="' . $operator_data[0]->operator_name . '" class="rounded mr-3" height="80" ></td></tr>';
-        $data .= '<tr><th scope="row" style="text-align:center">Operator Name</th><td style="text-align:center">' . $operator_data[0]->operator_name .'</td></tr>';
-        $data .= '<tr><th scope="row" style="text-align:center">Status</th><td style="text-align:center">' . $operator_data[0]->active_status .'</td></tr>';
-        $data .= '<tr><th scope="row" style="text-align:center">Created At</th><td style="text-align:center">' . date("d-m-Y -- H:i:s", strtotime($operator_data[0]->created_at)) .'</td></tr>';
-        $data .= '<tr><th scope="row" style="text-align:center">Updated At</th><td style="text-align:center">' . date("d-m-Y -- H:i:s", strtotime($operator_data[0]->updated_at)) .'</td></tr>';
+        $data .= '<tr><th scope="row" style="text-align:center">Icon</th><td style="text-align:center"><img src="'. $operator_data->operator_logo .'"title="' . $operator_data->operator_name . '" class="rounded mr-3" height="80" ></td></tr>';
+        $data .= '<tr><th scope="row" style="text-align:center">Operator Name</th><td style="text-align:center">' . $operator_data->operator_name .'</td></tr>';
+        $data .= '<tr><th scope="row" style="text-align:center">Status</th><td style="text-align:center">' . $active_status .'</td></tr>';
+        $data .= '<tr><th scope="row" style="text-align:center">Created At</th><td style="text-align:center">' . date("d-m-Y -- H:i:s", strtotime($operator_data->created_at)) .'</td></tr>';
+        $data .= '<tr><th scope="row" style="text-align:center">Updated At</th><td style="text-align:center">' . date("d-m-Y -- H:i:s", strtotime($operator_data->updated_at)) .'</td></tr>';
         $data .= '</tbody></table></div>';
         return $data;
     }
