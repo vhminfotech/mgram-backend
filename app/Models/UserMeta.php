@@ -10,6 +10,11 @@ class UserMeta extends Model
 {
     use HasFactory;
     
+    
+    protected $fillable = [
+        'user_id',
+    ];
+    
     public function addUserMeta($request){
         $objUserMeta = UserMeta::create($request);
         return $objUserMeta ;
