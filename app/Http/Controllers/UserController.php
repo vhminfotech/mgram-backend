@@ -22,7 +22,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'operator' => 'required',
-            'MSISDN' => 'required|integer',
+            'MSISDN' => 'required',
         ]);
         
         $userCheck = DB::table('users')
