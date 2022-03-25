@@ -9,6 +9,7 @@ use App\Http\Controllers\ColorsController;
 use App\Http\Controllers\AppConfigController;
 use App\Http\Controllers\UserMetaController;
 use App\Http\Controllers\AttachmentController;
+
 //Login Register
 Route::post('registration',[ UserController::class, 'Registration']);
 
@@ -30,7 +31,6 @@ Route::delete('deleteusers',[ UserController::class, 'deleteUsers']);
 //add this middleware to ensure that every request is authenticated
 Route::middleware('auth:api')->group(function(){
 
-    // Colors
     Route::get('colors',[ColorsController::class, 'index']);
     Route::get('color/{id}',[ColorsController::class, 'show']);
 

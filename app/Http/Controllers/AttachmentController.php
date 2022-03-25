@@ -46,7 +46,7 @@ class AttachmentController extends Controller
             return $data;
         }else{
             $data = array(
-                'message' => 'no image found',
+                'message' => 'No Image Found',
             );
             return $data;
         }
