@@ -14,7 +14,7 @@ class AttachmentController extends Controller
             'file_type' => 'required',
         ]);
         
-        $fileName = 'op_' .time().'.'.$request->file->extension();  
+        $fileName = 'op_' .time().'.'.$request->file->extension();
         $request->file->move(public_path('images/attachments/'  .date("Y") . '/' . date("m") . '/'), $fileName);
         $file_path = '/images/attachments/' .date("Y") . '/' . date("m") . '/' . $fileName;
         
