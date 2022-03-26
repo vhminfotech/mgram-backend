@@ -9,6 +9,7 @@ use App\Http\Controllers\ColorsController;
 use App\Http\Controllers\AppConfigController;
 use App\Http\Controllers\UserMetaController;
 use App\Http\Controllers\AttachmentController;
+use App\Http\Controllers\MessagesController;
 
 //Login Register
 Route::post('registration',[ UserController::class, 'Registration']);
@@ -39,7 +40,8 @@ Route::middleware('auth:api')->group(function(){
     
     Route::post('attachment', [AttachmentController::class, 'storeAttachment']);
     Route::get('attachment/{id}', [AttachmentController::class, 'getAttachment']);
-
+    
+    Route::post('compose', [MessagesController::class, 'composeMessage']);
 });
 
 
