@@ -9,7 +9,7 @@ use DB;
 class ThreadParticipants extends Model
 {
     use HasFactory;
-//    public $timestamps = false;
+    public $timestamps = false;
     
     public function createThreadParticipants($request, $thread_id, $user_id) {
         

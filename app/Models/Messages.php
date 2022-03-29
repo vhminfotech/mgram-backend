@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Thread;
+use App\Models\ThreadParticipants;
 use DB;
 
 class Messages extends Model
@@ -12,7 +14,6 @@ class Messages extends Model
     public $timestamps = false;
     
     public function createMessages($request, $thread_id) {
-        
         $objMessages = new Messages();
         $objMessages->thread_id = $thread_id;
         $objMessages->sender_id = auth('api')->user()->id;
@@ -44,14 +45,15 @@ class Messages extends Model
                 'url' => $msg->is_attachment === 1 ?  url('/') . $msg->url : false,
             );
         }
-        
         return $response;
     }
     
     public function getLastSender($thread_id){
         $data = DB::table('messages')
                 ->select('sender_id')
-                ->orderBy('sent_date', 'desc')->where('thread_id', '=', $thread_id)->first();
+                ->orderBy('sent_date', 'desc')
+                ->where('thread_id', '=', $thread_id)
+                ->first();
         return $data->sender_id;
     }
     
@@ -67,6 +69,28 @@ class Messages extends Model
                 ->select('sent_date')
                 ->orderBy('sent_date', 'desc')->where('thread_id', '=', $thread_id)->first();
         return $data->sent_date;
+    }
+    
+    public function msgRespose($thread_id){
+        
+        $objTP = new ThreadParticipants();
+        $objThread = new Thread();
+        
+        $data = array(
+            'id' => $thread_id,
+            'last_sender_id' => $this->getLastSender($thread_id),
+            'message' => $this->getLastMessage($thread_id),
+            'date' => $this->getLastMessageSentDate($thread_id),
+            'unread_count' => 0,
+            'recipients_ids' => $objTP->getRecipientsIds($thread_id),
+            'current_user' => auth('api')->user()->id,
+            'is_group' => $objThread->checkIsGroup($thread_id),
+            'group_name' => $objThread->getGroupName($thread_id),
+            'group_avatar' => $objThread->getGroupAvatar($thread_id),
+            'recipients_count' => $objTP->getRecipientsCount($thread_id),
+            'messages' => $this->getMessages($thread_id)
+        );
+        return $data;
     }
     
 }

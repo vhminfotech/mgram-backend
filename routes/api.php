@@ -10,7 +10,7 @@ use App\Http\Controllers\AppConfigController;
 use App\Http\Controllers\UserMetaController;
 use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\MessagesController;
-
+use App\Models\Messages;
 //Login Register
 Route::post('registration',[ UserController::class, 'Registration']);
 
@@ -42,6 +42,7 @@ Route::middleware('auth:api')->group(function(){
     Route::get('attachment/{id}', [AttachmentController::class, 'getAttachment']);
     
     Route::post('compose', [MessagesController::class, 'composeMessage']);
+    Route::get('thread/{thread_id}', [MessagesController::class, 'getMessageRespose']);
 });
 
 
