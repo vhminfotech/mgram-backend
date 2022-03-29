@@ -16,6 +16,8 @@ class CreateThreadsTable extends Migration
         Schema::create('threads', function (Blueprint $table) {
             $table->id();
             $table->enum('thread_type', ['personal', 'room'])->default('personal');
+            $table->string('name', 255)->nullable();
+            $table->string('avatar', 255)->nullable();
             $table->dateTime('last_sent_date')->nullable();
             $table->dateTime('created_at');
         });

@@ -20,7 +20,6 @@ class CreateMessagesTable extends Migration
             $table->string('text', 255)->nullable();
             $table->boolean('is_attachment')->default(0);
             $table->string('attachment_id', 55)->nullable();
-            $table->string('system_msg', 255)->nullable();
             $table->dateTime('sent_date');
         });
     }
