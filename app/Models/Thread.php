@@ -45,7 +45,6 @@ class Thread extends Model
         foreach($data as $value){
             $respose[] = $this->threadResponse($value->id);
         }
-        
         return $respose;
     }
     
@@ -77,31 +76,31 @@ class Thread extends Model
     
     public function createNewThread($request) {
         $objThread = new Thread();
-            $objThread->thread_type = count($request->user_id) > 2  ? 'room' : 'personal';
-            $objThread->last_sent_date = date("Y-m-d h:i:s");
-            $objThread->created_at = date("Y-m-d h:i:s");
-            $objThread->save();
-            return $objThread->id;
+        $objThread->thread_type = count($request->user_id) > 2  ? 'room' : 'personal';
+        $objThread->last_sent_date = date("Y-m-d h:i:s");
+        $objThread->created_at = date("Y-m-d h:i:s");
+        $objThread->save();
+        return $objThread->id;
     }
     
     public function checkIsGroup($thread_id) {
         $data = DB::table('threads')
                     ->select('thread_type')
-                    ->where('id', '=', $thread_id)->get();
-        return $data[0]->thread_type === 'room' ? true : false;
+                    ->where('id', '=', $thread_id)->first();
+        return $data->thread_type === 'room' ? true : false;
     }
     
     public function getGroupName($thread_id) {
         $data = DB::table('threads')
                     ->select('name')
-                    ->where('id', '=', $thread_id)->get();
-        return $data[0]->name;
+                    ->where('id', '=', $thread_id)->first();
+        return $data->name;
     }
     
     public function getGroupAvatar($thread_id) {
         $data = DB::table('threads')
                     ->select('avatar')
-                    ->where('id', '=', $thread_id)->get();
-        return $data[0]->avatar;
+                    ->where('id', '=', $thread_id)->first();
+        return $data->avatar;
     }
 }
