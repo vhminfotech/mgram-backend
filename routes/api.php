@@ -41,8 +41,10 @@ Route::middleware('auth:api')->group(function(){
     Route::post('attachment', [AttachmentController::class, 'storeAttachment']);
     Route::get('attachment/{id}', [AttachmentController::class, 'getAttachment']);
     
-    Route::post('compose', [MessagesController::class, 'composeMessage']);
+    Route::post('thread', [MessagesController::class, 'composeMessage']);
     Route::get('thread/{thread_id}', [MessagesController::class, 'getMessageRespose']);
+    
+    Route::post('compose/{thread_id}', [MessagesController::class, 'createMessage']);
 });
 
 

@@ -18,7 +18,8 @@ class MessagesController extends Controller
         
         if(count($request->user_id) === 2 ){
             $request->validate([
-                'text' => 'required'
+                'text' => 'required_without:attachment_id',
+                'attachment_id' => 'required_without:text',
             ]);
         }
         
@@ -44,6 +45,16 @@ class MessagesController extends Controller
             //if thread is already exist
             return $objMsg->msgRespose($thread['thread_id']);
         }
+    }
+    
+    public function createMessage(Request $request, $thread_id) {
+        $request->validate([
+            'text' => 'required_without:attachment_id',
+            'attachment_id' => 'required_without:text',
+        ]);
+        $objMsg = new Messages();
+        $createMSG = $objMsg->createMessages($request, $thread_id);
+        return $objMsg->msgRespose($thread_id);
     }
     
     public function getMessageRespose($thread_id){
