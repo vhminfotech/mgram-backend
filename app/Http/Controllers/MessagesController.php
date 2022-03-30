@@ -53,12 +53,19 @@ class MessagesController extends Controller
             'attachment_id' => 'required_without:text',
         ]);
         $objMsg = new Messages();
-        $createMSG = $objMsg->createMessages($request, $thread_id);
+        $objMsg->createMessages($request, $thread_id);
+        
+        
         return $objMsg->msgRespose($thread_id);
     }
     
     public function getMessageRespose($thread_id){
         $objMsg = new Messages();
         return $objMsg->msgRespose($thread_id);
+    }
+    
+    public function getAllThreads(){
+        $objThread = new Thread();
+        return $objThread->getAllThreads();
     }
 }

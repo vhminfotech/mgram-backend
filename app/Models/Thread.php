@@ -34,6 +34,47 @@ class Thread extends Model
         }
     }
     
+     public function getAllThreads() {
+        $data = DB::table('threads')
+                ->select('threads.*')
+                ->leftJoin('thread_participants', 'thread_participants.thread_id', '=', 'threads.id')
+                ->orderBy('threads.last_sent_date', 'desc')
+                ->where('thread_participants.user_id', '=', auth('api')->user()->id)
+                ->get();
+        
+        foreach($data as $value){
+            $respose[] = $this->threadResponse($value->id);
+        }
+        
+        return $respose;
+    }
+    
+    public function threadResponse($thread_id) {
+        $objTP = new ThreadParticipants();
+        $objMsg = new Messages();
+        
+        $data = array(
+            'id' => $thread_id,
+            'last_sender_id' => $objMsg->getLastSender($thread_id),
+            'message' => $objMsg->getLastMessage($thread_id),
+            'date' => $objMsg->getLastMessageSentDate($thread_id),
+            'unread_count' => 0,
+            'recipients_ids' => $objTP->getRecipientsIds($thread_id),
+            'current_user' => auth('api')->user()->id,
+            'is_group' => $this->checkIsGroup($thread_id),
+            'group_name' => $this->getGroupName($thread_id),
+            'group_avatar' => $this->getGroupAvatar($thread_id),
+            'recipients_count' => $objTP->getRecipientsCount($thread_id),
+        );
+        return $data;
+    }
+    
+    public function updateThreadLateDateSent($thread_id) {
+        $objThread = Thread::find($thread_id);
+        $objThread->last_sent_date = date("Y-m-d h:i:s");
+        return $objThread->save();
+    }
+    
     public function createNewThread($request) {
         $objThread = new Thread();
             $objThread->thread_type = count($request->user_id) > 2  ? 'room' : 'personal';

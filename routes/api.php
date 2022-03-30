@@ -45,6 +45,7 @@ Route::middleware('auth:api')->group(function(){
     Route::get('thread/{thread_id}', [MessagesController::class, 'getMessageRespose']);
     
     Route::post('compose/{thread_id}', [MessagesController::class, 'createMessage']);
+    Route::get('threads', [MessagesController::class, 'getAllThreads']);
 });
 
 
