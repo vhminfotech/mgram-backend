@@ -50,6 +50,16 @@ class ThreadParticipants extends Model
         return $data->unread_count;
     }
     
+    public function updateReadCount($request, $thread_id){
+        $objTP = ThreadParticipants::where('thread_id', '=', $thread_id)
+                ->where('user_id', '=', auth('api')->user()->id)
+                ->first();
+        $objTP->unread_count = $request->action === 'read' ? 0 : 1;
+        if($objTP->save()){
+            return array('status' => 1, 'Read count updated');
+        }
+    }
+    
     public function getRecipientsIds($thread_id){
        $data = DB::table('thread_participants')
                 ->select('user_id')
@@ -73,5 +83,4 @@ class ThreadParticipants extends Model
                 ->where('thread_id', '=', $thread_id)->get();
         return count($data);
     }
-    
 }

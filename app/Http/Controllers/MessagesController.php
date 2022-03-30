@@ -68,4 +68,13 @@ class MessagesController extends Controller
         $objThread = new Thread();
         return $objThread->getAllThreads();
     }
+    
+    public function markThread(Request $request, $thread_id) {
+        $request->validate([
+            'action' => 'required',
+        ]);
+        
+        $objTP = new ThreadParticipants();
+        return $objTP->updateReadCount($request, $thread_id);
+    }
 }

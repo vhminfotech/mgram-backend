@@ -31,7 +31,6 @@ class Messages extends Model
         $objThread->setReadCount($thread_id);
         
         return $objMessages;
-
     }
     
     public function getMessages($thread_id) {

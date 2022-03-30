@@ -10,7 +10,7 @@ use App\Http\Controllers\AppConfigController;
 use App\Http\Controllers\UserMetaController;
 use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\MessagesController;
-use App\Models\Messages;
+
 //Login Register
 Route::post('registration',[ UserController::class, 'Registration']);
 
@@ -46,6 +46,8 @@ Route::middleware('auth:api')->group(function(){
     
     Route::post('compose/{thread_id}', [MessagesController::class, 'createMessage']);
     Route::get('threads', [MessagesController::class, 'getAllThreads']);
+    
+    Route::post('mark/{thread_id}', [MessagesController::class, 'markThread']);
 });
 
 
