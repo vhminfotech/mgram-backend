@@ -27,6 +27,7 @@
                                <div class="col-md-10">
                                    <select class="form-select" name="operator"  id="operator">
                                        <option value="">Select</option>
+                                       
                                        @foreach($operators as $op_value)
                                         <option value="{{$op_value->id}}" {{$op_value->id == $value->operator ? 'selected' : ''}}>{{$op_value->operator_name}}</option>
                                        @endforeach

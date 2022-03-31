@@ -44,7 +44,7 @@
                                <label for="active_status" data-on-label="On" data-off-label="Off"></label>
                            </div>
                            <div>
-                               <button class="btn btn-primary" type="submit">Submit form</button>
+                               <button class="btn btn-primary" type="submit">Submit</button>
                            </div>
                        </div>
                    </div>

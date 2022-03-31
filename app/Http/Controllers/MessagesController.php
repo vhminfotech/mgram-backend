@@ -55,7 +55,6 @@ class MessagesController extends Controller
         $objMsg = new Messages();
         $objMsg->createMessages($request, $thread_id);
         
-        
         return $objMsg->msgRespose($thread_id);
     }
     

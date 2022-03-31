@@ -48,13 +48,13 @@ class ApnParametersController extends Controller {
     
     public function addApnForm(Request $request) {
         // get Operators
-        $operators = DB::table('operators')
-                ->select('operators.*')
-                ->leftJoin('apn_parameter', 'apn_parameter.operator', '=', 'operators.id')
-                ->whereNull('apn_parameter.operator')
-                ->orWhereNotNull('apn_parameter.deleted_at')
-                ->get();
-        
+//        $operators = DB::table('operators')
+//                ->select('operators.*')
+//                ->leftJoin('apn_parameter', 'apn_parameter.operator', '=', 'operators.id')
+//                ->whereNull('apn_parameter.operator')
+//                ->orWhereNotNull('apn_parameter.deleted_at')
+//                ->get();
+        $operators = Operators::all();
         $data = compact('operators');
         return view('pages.apn.add')->with($data);
     }
@@ -73,13 +73,15 @@ class ApnParametersController extends Controller {
         $apn_data = $apn_data->all();
         
         // get Operators
-        $operators = DB::table('operators')
-                ->select('operators.*')
-                ->leftJoin('apn_parameter', 'apn_parameter.operator', '=', 'operators.id')
-                ->whereNull('apn_parameter.operator')
-                ->orWhereNotNull('apn_parameter.deleted_at')
-                ->get();
-    
+//        $operators = DB::table('operators')
+//                ->select('operators.*')
+//                ->leftJoin('apn_parameter', 'apn_parameter.operator', '=', 'operators.id')
+//                ->whereNull('apn_parameter.operator')
+//                ->orWhereNotNull('operators.deleted_at')
+//                ->get();
+        
+        $operators = Operators::all();
+
         $data = compact('apn_data', 'operators');
         return view('pages.apn.edit')->with($data);
     }
