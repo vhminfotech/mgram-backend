@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', "Edit APN")
+@section('title', "Edit Setting")
 
 @section('content')
 
@@ -10,145 +10,51 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">Edit APN</h4>
+                    <h4 class="mb-sm-0 font-size-18">Edit Setting</h4>
                 </div>
             </div>
         </div>
-        @foreach($apn_data as $value)
-        @endforeach
+    
+       
         <!-- end page title -->
            <div class="row">
                <div class="col-12">
-                   <form method="POST" id="edit-apn-form-validation"> @csrf
+                   <form method="POST" id="edit-apn-form-validation"  enctype='multipart/form-data'> @csrf
                    <div class="card">
                        <div class="card-body">
+                           <input name="operator" type="hidden" value="{{$settingData->operator}}">
+
+                           @if($settingData->config_name === 'apk')
+                           
                            <div class="mb-3 row">
-                               <label class="col-md-2 col-form-label">Operator</label>
-                               <div class="col-md-10">
-                                   <select class="form-select" name="operator"  id="operator">
-                                       <option value="">Select</option>
-                                       
-                                       @foreach($operators as $op_value)
-                                        <option value="{{$op_value->id}}" {{$op_value->id == $value->operator ? 'selected' : ''}}>{{$op_value->operator_name}}</option>
-                                       @endforeach
-                                   </select>
+                               <div class="input-group">
+                                   <label for="apk" class="col-md-2 col-form-label">APK File</label>
+                                   <div class="col-md-10">
+                                       <input type="file" class="form-control" name="apk" id="operator_logo" aria-describedby="apk" aria-label="Upload">
+                                       <div class="alert alert-primary mt-3" role="alert">
+                                           <a href="{{$settingData->config_value}}" class="alert-link">Uploaded OLD APK FILE</a>. Give it a click if you want to download.
+                                   </div>
                                </div>
                            </div>
+                           
+                           @else
+                           
                            <div class="mb-3 row">
-                               <label for="apn_name" class="col-md-2 col-form-label">APN Name</label>
+                               <label for="config_value" class="col-md-2 col-form-label">{{$settingData->config_name}}</label>
                                <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->apn_name}}" type="text" name="apn_name" id="apn_name">
+                                   <input autocomplete="off" class="form-control" value="{{$settingData->config_value}}" type="text" name="config_value" id="config_value">
                                </div>
                            </div>
-                           <div class="mb-3 row">
-                               <label for="apn" class="col-md-2 col-form-label">APN</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->apn}}" type="text" name="apn" id="apn">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="proxy" class="col-md-2 col-form-label">Proxy</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->proxy}}" type="text" name="proxy" id="proxy">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="port" class="col-md-2 col-form-label">Port</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->port}}" type="text" name="port" id="port">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="username" class="col-md-2 col-form-label">Username</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->username}}" type="text" name="username" id="username">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="password" class="col-md-2 col-form-label">Password</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->password}}" type="text" name="password" id="password">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="server" class="col-md-2 col-form-label">Server</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->server}}" type="text" name="server" id="server">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="mmsc" class="col-md-2 col-form-label">MMSC</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->mmsc}}" type="text" name="mmsc" id="mmsc">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="mms_proxy" class="col-md-2 col-form-label">MMS Proxy</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->mms_proxy}}" type="text" name="mms_proxy" id="mms_proxy">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="mms_port" class="col-md-2 col-form-label">MMS Port</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->mms_port}}" type="text" name="mms_port" id="mms_port">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="mcc" class="col-md-2 col-form-label">MCC</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->mcc}}" type="text" name="mcc" id="mcc">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="mnc" class="col-md-2 col-form-label">MNC</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->mnc}}" type="text" name="mnc" id="mnc">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="auth_type" class="col-md-2 col-form-label">Auth Type</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->auth_type}}" type="text" name="auth_type" id="auth_type">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="apn_type" class="col-md-2 col-form-label">APN Type</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->apn_type}}" type="text" name="apn_type" id="apn_type">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="apn_roaming" class="col-md-2 col-form-label">APN Roaming</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->apn_roaming}}" type="text" name="apn_roaming" id="apn_roaming">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="bearer" class="col-md-2 col-form-label">Bearer</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->bearer}}" type="text" name="bearer" id="bearer">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="mvno_type" class="col-md-2 col-form-label">MVNO Type</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->mvno_type}}" type="text" name="mvno_type" id="mvno_type">
-                               </div>
-                           </div>
-                           <div class="mb-3 row">
-                               <label for="mvno_value" class="col-md-2 col-form-label">MVNO Value</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$value->mvno_value}}" type="text" name="mvno_value" id="mvno_value">
-                               </div>
-                           </div>
+                           
+                           @endif
+                           
                            <div>
-                               <button class="btn btn-primary" type="submit">Submit form</button>
+                               <button class="btn btn-primary" type="submit">Submit</button>
                            </div>
                        </div>
                    </div>
                </form>
-               </div> <!-- end col -->
+               </div> 
            </div>
     </div>
 </div>
@@ -172,63 +78,12 @@
     $(document).ready(function() {
         $("#edit-apn-form-validation").validate({
             rules: {
-                operator : {
+                apk : {
                     required: true,
                 },
-                apn_name : {
+                config_value : {
                     required: true,
-                },
-                apn: {
-                    required: true,
-                },
-                proxy: {
-                    required: true,
-                },
-                port: {
-                    required: true,
-                },
-                username: {
-                    required: true,
-                },
-                password: {
-                    required: true,
-                },
-                server: {
-                    required: true,
-                },
-                mmsc: {
-                    required: true,
-                },
-                mms_proxy: {
-                    required: true,
-                },
-                mms_port : {
-                    required: true
-                },
-                mcc: {
-                    required: true,
-                },
-                mnc: {
-                    required: true,
-                },
-                auth_type: {
-                    required: true,
-                },
-                apn_type: {
-                    required: true,
-                },
-                apn_roaming: {
-                    required: true,
-                },
-                bearer: {
-                    required: true,
-                },
-                mvno_type: {
-                    required: true,
-                },
-                mvno_value: {
-                    required: true,
-                },
+                }
             }
         });
     });

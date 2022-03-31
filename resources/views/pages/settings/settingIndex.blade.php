@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', "APN List")
+@section('title', "Operator List")
 
 @section('content')
 <link href="{{asset('/backend/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">APN List</h4>
+                    <h4 class="mb-sm-0 font-size-18">Operator List</h4>
                 </div>
             </div>
         </div>
@@ -31,33 +31,29 @@
                         <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
                             <thead>
                                 <tr>
+                                    <th style="text-align:center">Icon</th>
                                     <th style="text-align:center">Name</th>
-                                    <th style="text-align:center">APN</th>
-                                    <th style="text-align:center">Operator</th>
-                                    <th style="text-align:center">Created at</th>
                                     <th style="text-align:center">Action</th>
                                 </tr>
                                 </thead>
                                 
                                 <tbody>
-                                    @if(!empty($apn_data))
-                                    @foreach($apn_data as $value)
+                                    @if(!empty($operator_data))
+                                    @foreach($operator_data as $value)
                                     
                                     <tr>
-                                        <td style="text-align:center">{{$value->apn_name}}</td>
-                                        <td style="text-align:center">{{$value->apn}}</td>
+                                        <td style="text-align:center">
+                                            <img src="{{$value->operator_logo}}" alt="{{$value->operator_name}}" title="{{$value->operator_name}}" class="rounded mr-3" height="40">
+                                        </td>
                                         <td style="text-align:center">{{$value->operator_name}}</td>
-                                        <td style="text-align:center">{{date("d-m-Y -- H:i:s", strtotime($value->created_at))}}</td>
                                         <td style="text-align:center">
                                             <a class="btn btn-outline-secondary btn-sm" id="view_apn" data-id="{{$value->id}}" title="View">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="{{url("editapn", $value->id)}}" class="btn btn-outline-secondary btn-sm" title="Edit">
+                                            <a href="{{url("configIndex", $value->id)}}" class="btn btn-outline-secondary btn-sm" title="Edit">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
-                                            <a class="btn btn-outline-secondary btn-sm" id="delete_apn" data-id="{{$value->id}}" title="Delete">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
+                                         
                                         </td>
                                     </tr>
                                     
@@ -118,7 +114,7 @@ $(document).on('click', '#view_apn', function(){
     $.ajax({
         type: "POST",
         headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()},
-        url: baseurl + "ajaxGetApn",
+        url: baseurl + "ajaxGetOperators",
         data: {'id': id},
         success: function (html) {
             modelBody.empty();
@@ -128,35 +124,5 @@ $(document).on('click', '#view_apn', function(){
     });
 });
 
-$(document).on('click', '#delete_apn', function(){
-    var id = $(this).attr("data-id");
-    var row = $(this).closest('tr');
-    Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: !0,
-          confirmButtonColor: "#34c38f",
-          cancelButtonColor: "#f46a6a",
-          confirmButtonText: "Yes, delete it!",
-        }).then(function (respose) {
-            if(respose.isConfirmed){
-                $.ajax({
-                    type: "POST",
-                    headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()},
-                    url: baseurl + "ajaxDeleteApn",
-                    data: {'id': id},
-                    success: function (response) {
-                        if(response == 1){
-                            Swal.fire("Deleted!", "Your record has been deleted.", "success");
-                            table.row( row ).remove().draw();
-                        }else{
-                            Swal.fire("Deleted!", "Your file has been deleted.", "success");
-                        }
-                    }
-                });
-            }
-        });
-    });
 </script>
 @endsection

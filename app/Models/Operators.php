@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\AppConfig;
 
 class Operators extends Model
 {
@@ -23,7 +24,13 @@ class Operators extends Model
         $objOperator->active_status = $request->active_status == 'on' ? 1 : 0;
         $objOperator->created_at = date("Y-m-d h:i:s");
         $objOperator->updated_at = date("Y-m-d h:i:s");
-        return $objOperator->save();
+        $objOperator->save();
+        
+        $appConf = new AppConfig();
+        $appConf->createAppConfig($objOperator->id);
+        
+        return $objOperator;
+        
     }
     
     public function updateOperator($request, $id) {

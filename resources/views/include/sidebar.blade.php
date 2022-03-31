@@ -46,6 +46,17 @@
                         </ul>
                     </li>
                     
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                           <i class="dripicons-gear"></i>
+                            <span key="t-tables">Settings</span>
+                        </a>
+                        <ul class="sub-menu mm-collapse" aria-expanded="false">
+                            <li><a href="{{ url('settings') }}" key="t-editable-table">App Settings</a></li>
+                        </ul>
+                    </li>
+                    
+                    
 <!--                    <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="bx bx-user"></i>

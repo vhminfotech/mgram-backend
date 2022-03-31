@@ -32,7 +32,7 @@ class ApnParametersController extends Controller {
     }
     
     public function update(Request $request, $id) {
-        $ApnParam= APN_Parameters::findOrFail($id);
+        $ApnParam = APN_Parameters::findOrFail($id);
         $ApnParam->update($request->all());
 
         return $ApnParam;
