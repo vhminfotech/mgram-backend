@@ -46,8 +46,6 @@ class OperatorController extends Controller {
         return true;
     }
     
-    
-    
     public function ajaxGetOperators(Request $request){
         $operator_data = Operators::find($request->id);
         

@@ -6,7 +6,6 @@ use App\Http\Controllers\ApnParametersController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AppConfigController;
-use App\Models\AppConfig;
 
 Route::get('clear', function () {
     $exitCode = Artisan::call('cache:clear');
@@ -36,6 +35,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('editOperator/{id}', [OperatorController::class, 'editOperatorForm']);
     Route::post('editOperator/{id}', [OperatorController::class, 'editOperator']);
     
+     //Setting
+    Route::get('settings', [AppConfigController::class, 'SettingList']);
+    Route::get('configIndex/{id}', [AppConfigController::class, 'ConfigIndex']);
+    Route::get('editSetting/{id}', [AppConfigController::class, 'editSettingForm']);
+    Route::post('editSetting/{id}', [AppConfigController::class, 'editSetting']);
+    
     //AJAX ROUTES
     
     //APN
@@ -44,12 +49,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     //Operators
     Route::post('ajaxGetOperators', [OperatorController::class, 'ajaxGetOperators']);
     Route::post('ajaxDeleteOperator', [OperatorController::class, 'deleteOperator']);
-    
-    
-    //Setting
-    Route::get('settings', [AppConfigController::class, 'SettingList']);
-    Route::get('configIndex/{id}', [AppConfigController::class, 'ConfigIndex']);
-    Route::get('editSetting/{id}', [AppConfigController::class, 'editSettingForm']);
-    Route::post('editSetting/{id}', [AppConfigController::class, 'editSetting']);
+   
 });
 

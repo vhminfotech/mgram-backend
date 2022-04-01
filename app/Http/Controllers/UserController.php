@@ -25,16 +25,15 @@ class UserController extends Controller
             'MSISDN' => 'required',
         ]);
         
-        $userCheck = DB::table('users')
-             ->where('MSISDN', '=', $request->MSISDN)
-             ->get();
+        $userCheck = DB::table('users')->where('MSISDN', '=', $request->MSISDN)->first();
         
-        if($userCheck->isEmpty()){
+        if($userCheck === NULL){
             
             $User= User::create([
                 'name' =>$request->name,
                 'operator'=>$request->operator,
                 'MSISDN'=>$request->MSISDN,
+                'last_active' => date("Y-m-d h:i:s")
             ]);
             
             $objUserMeta = new UserMeta();
@@ -54,13 +53,16 @@ class UserController extends Controller
             
         }else{
             
-            $User = User::find($userCheck[0]->id);
+            $User = User::find($userCheck->id);
             $access_token = $User->createToken('tokens')->accessToken;
+            
+            $objUser = new User();
+            $objUser->updateLastActive($userCheck->id);
             
             //now return this token on success login attempt
             return response()->json([
                     'status' => 1, 
-                    "user_id" => $userCheck[0]->id,
+                    "user_id" => $userCheck->id,
                     "user_data" => $userCheck,
                     "token" => $access_token,
                     "message" => "User Login Successfully"
