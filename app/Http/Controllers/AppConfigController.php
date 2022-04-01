@@ -10,8 +10,6 @@ use DB;
 class AppConfigController extends Controller {
     
     public function SettingList() {
-        
-        
         $operator_data = Operators::all();
         
         $data = compact('operator_data');
@@ -39,30 +37,55 @@ class AppConfigController extends Controller {
         return redirect()->back();
     }
     
-    public function index(){
-        $appConfig = AppConfig::all();
+    public function index($operator_id){
+        $appConfig = AppConfig::select('config_name', 'config_value')
+                ->where('operator','=',$operator_id)->get();
         
         if($appConfig->isEmpty()){
             return array('status'=> 0 , 'message' => 'No Data Found' );
         }else{
-            return $appConfig;
+            foreach($appConfig as $value){
+                if($value->config_name === 'apk'){
+                    $data[] = [ 'config_name' => $value->config_name, 'config_value' =>  url('/') . $value->config_value];
+                }else{
+                    $data[] = [ 'config_name' => $value->config_name, 'config_value' =>  $value->config_value];
+                }
+                
+            }
+            return $data;
         }
     }
     
     public function show(Request $request){
-        if($request->config_name !== null){
+        
+         $request->validate([
+            'config_name' => 'required',
+            'operator' => 'required',
+        ]);
+         
+//        if($request->config_name !== null && $request->operator){
             $app_config = DB::table('app_config')
-             ->where('config_name', '=', $request->config_name)
-             ->get();
+                    ->where('config_name', '=', $request->config_name)
+                    ->where('operator', '=', $request->operator)
+                    ->get();
         
             if($app_config->isEmpty()){
                 return array('status'=> 0 , 'message' => 'No Data Found' );
             }else{
-                return $app_config;
+                
+                foreach($app_config as $value){
+                if($value->config_name === 'apk'){
+                    $data[] = [ 'config_name' => $value->config_name, 'config_value' =>  url('/') . $value->config_value];
+                }else{
+                    $data[] = [ 'config_name' => $value->config_name, 'config_value' =>  $value->config_value];
+                }
+                
             }
-        }else {
-            return "config_name is required field";
-        }
+            return $data;
+            }
+//        }else {
+//            return "config_name is required field";
+//        }
 
     }
 }

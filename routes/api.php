@@ -23,7 +23,7 @@ Route::get('apn-params',[ApnParametersController::class, 'index']);
 Route::get('apn-params/{id}',[ ApnParametersController::class, 'show']);
 
 //App Config
-Route::get('app_config_all',[AppConfigController::class, 'index']);
+Route::get('app_config/{id}',[AppConfigController::class, 'index']);
 Route::get('app_config',[AppConfigController::class, 'show']);
 
 //Turncate Users
