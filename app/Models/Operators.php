@@ -47,12 +47,12 @@ class Operators extends Model
         $objOperator->active_status = $request->active_status == 'on' ? 1 : 0;
         $objOperator->updated_at = date("Y-m-d h:i:s");
         
-//        $appConf = AppConfig::where('operator', '=', $id);
+        $appConf = AppConfig::where('operator', '=', $id)->first();
         
-        
+        if($appConf === NULL){
+            $appConf = new AppConfig();
+            $appConf->createAppConfig($id);
+        }
         return $objOperator->save();
-        
-        
-        
     }
 }
