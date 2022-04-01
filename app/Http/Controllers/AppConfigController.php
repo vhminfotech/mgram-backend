@@ -45,12 +45,15 @@ class AppConfigController extends Controller {
             return array('status'=> 0 , 'message' => 'No Data Found' );
         }else{
             foreach($appConfig as $value){
-                if($value->config_name === 'apk'){
-                    $data[] = [ 'config_name' => $value->config_name, 'config_value' =>  url('/') . $value->config_value];
+                if($value->config_name === 'apk' ){
+                    if($value->config_value !== ''){
+                        $data[] = [ 'config_name' => $value->config_name, 'config_value' =>  url('/') . $value->config_value];
+                    }else{
+                        $data[] = [ 'config_name' => $value->config_name, 'config_value' =>  ''];
+                    }
                 }else{
                     $data[] = [ 'config_name' => $value->config_name, 'config_value' =>  $value->config_value];
                 }
-                
             }
             return $data;
         }
@@ -72,20 +75,18 @@ class AppConfigController extends Controller {
             if($app_config->isEmpty()){
                 return array('status'=> 0 , 'message' => 'No Data Found' );
             }else{
-                
                 foreach($app_config as $value){
                 if($value->config_name === 'apk'){
-                    $data[] = [ 'config_name' => $value->config_name, 'config_value' =>  url('/') . $value->config_value];
+                    if($value->config_value !== ''){
+                        $data[] = [ 'config_name' => $value->config_name, 'config_value' =>  url('/') . $value->config_value];
+                    }else{
+                        $data[] = [ 'config_name' => $value->config_name, 'config_value' =>  ''];
+                    }
                 }else{
                     $data[] = [ 'config_name' => $value->config_name, 'config_value' =>  $value->config_value];
                 }
-                
             }
             return $data;
-            }
-//        }else {
-//            return "config_name is required field";
-//        }
-
+        }
     }
 }
