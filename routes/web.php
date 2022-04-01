@@ -51,7 +51,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('configIndex/{id}', [AppConfigController::class, 'ConfigIndex']);
     Route::get('editSetting/{id}', [AppConfigController::class, 'editSettingForm']);
     Route::post('editSetting/{id}', [AppConfigController::class, 'editSetting']);
-    
-    Route::get('cac/{id}', [AppConfig::class, 'createAppConfig']);
 });
 

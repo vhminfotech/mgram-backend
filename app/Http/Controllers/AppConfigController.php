@@ -17,6 +17,11 @@ class AppConfigController extends Controller {
     }
     
     public function ConfigIndex($id){
+        $appConf = AppConfig::where('operator', '=', $id)->first();
+        if($appConf === NULL){
+            $appConf = new AppConfig();
+            $appConf->createAppConfig($id);
+        }
         
         $settingData = AppConfig::where('operator', '=', $id)->get();
         
