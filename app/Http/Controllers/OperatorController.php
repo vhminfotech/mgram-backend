@@ -46,6 +46,17 @@ class OperatorController extends Controller {
         return true;
     }
     
+    public function operatorTrash() {
+        $operator_data = Operators::onlyTrashed()->get();
+        $data = compact('operator_data');
+        return view('pages.operator.trash')->with($data);
+    }
+    
+    public function restoreOperator(Request $request){
+        Operators::withTrashed()->find($request->id)->restore();
+        return true;
+    }
+    
     public function ajaxGetOperators(Request $request){
         $operator_data = Operators::find($request->id);
         

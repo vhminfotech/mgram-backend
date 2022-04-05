@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', "APN List")
+@section('title', "Operator List")
 
 @section('content')
 <link href="{{asset('/backend/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
@@ -51,13 +51,13 @@
                                         <td style="text-align:center">{{$value->active_status == 1 ? 'Active' : 'Inactive' }}</td>
                                         <td style="text-align:center">{{date("d-m-Y -- H:i:s", strtotime($value->created_at))}}</td>
                                         <td style="text-align:center">
-                                            <a class="btn btn-outline-secondary btn-sm" id="view_apn" data-id="{{$value->id}}" title="View">
+                                            <a class="btn btn-outline-secondary btn-sm" id="view_operator" data-id="{{$value->id}}" title="View">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                             <a href="{{url("editOperator", $value->id)}}" class="btn btn-outline-secondary btn-sm" title="Edit">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
-                                            <a class="btn btn-outline-secondary btn-sm" id="delete_apn" data-id="{{$value->id}}" title="Delete">
+                                            <a class="btn btn-outline-secondary btn-sm" id="delete_operator" data-id="{{$value->id}}" title="Delete">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>
@@ -75,11 +75,11 @@
 </div>
 
 <!-- Transaction Modal -->
-<div id="apnModal" class="modal fade transaction-detailModal" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+<div id="operatorModal" class="modal fade transaction-detailModal" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="transaction-detailModalLabel">APN Details</h5>
+                <h5 class="modal-title" id="transaction-detailModalLabel">Operator Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -114,7 +114,7 @@
 <script>
 
 var table =  $("#datatable").DataTable();
-$(document).on('click', '#view_apn', function(){
+$(document).on('click', '#view_operator', function(){
     var id = $(this).attr("data-id");
     var modelBody=$('.modal-body');
     $.ajax({
@@ -125,17 +125,17 @@ $(document).on('click', '#view_apn', function(){
         success: function (html) {
             modelBody.empty();
             modelBody.append(html);
-            $('#apnModal').modal('show');
+            $('#operatorModal').modal('show');
         }
     });
 });
 
-$(document).on('click', '#delete_apn', function(){
+$(document).on('click', '#delete_operator', function(){
     var id = $(this).attr("data-id");
     var row = $(this).closest('tr');
     Swal.fire({
           title: "Are you sure?",
-          text: "You won't be able to revert this!",
+//          text: "You won't be able to revert this!",
           icon: "warning",
           showCancelButton: !0,
           confirmButtonColor: "#34c38f",

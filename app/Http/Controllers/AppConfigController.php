@@ -11,7 +11,6 @@ class AppConfigController extends Controller {
     
     public function SettingList() {
         $operator_data = Operators::all();
-        
         $data = compact('operator_data');
         return view('pages.settings.settingIndex')->with($data);
     }
@@ -39,7 +38,7 @@ class AppConfigController extends Controller {
     public function editSetting(Request $request, $id) {
         $objAppConf = new AppConfig();
         $objAppConf->updateAppConfig($request, $id);
-        return redirect()->back();
+        return back();
     }
     
     public function index($operator_id){

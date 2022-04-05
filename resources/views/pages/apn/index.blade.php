@@ -31,8 +31,7 @@
                         <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
                             <thead>
                                 <tr>
-                                    <th style="text-align:center">Name</th>
-                                    <th style="text-align:center">APN</th>
+                                    <th style="text-align:center">APN Name</th>
                                     <th style="text-align:center">Operator</th>
                                     <th style="text-align:center">Created at</th>
                                     <th style="text-align:center">Action</th>
@@ -45,7 +44,6 @@
                                     
                                     <tr>
                                         <td style="text-align:center">{{$value->apn_name}}</td>
-                                        <td style="text-align:center">{{$value->apn}}</td>
                                         <td style="text-align:center">{{$value->operator_name}}</td>
                                         <td style="text-align:center">{{date("d-m-Y -- H:i:s", strtotime($value->created_at))}}</td>
                                         <td style="text-align:center">
@@ -133,7 +131,7 @@ $(document).on('click', '#delete_apn', function(){
     var row = $(this).closest('tr');
     Swal.fire({
           title: "Are you sure?",
-          text: "You won't be able to revert this!",
+//          text: "You won't be able to revert this!",
           icon: "warning",
           showCancelButton: !0,
           confirmButtonColor: "#34c38f",

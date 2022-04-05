@@ -39,9 +39,9 @@ class ApnParametersController extends Controller {
     }
     
     public function ApnListIndex() {
-        $apn_data = APN_Parameters::join('operators', 'operators.id', '=', 'apn_parameter.operator')
-                ->get(['apn_parameter.*', 'operators.operator_name']);
-        $apn_data = $apn_data->all();
+        
+          $apn_data = APN_Parameters::leftJoin('operators' , 'operators.id', '=', 'apn_parameter.operator')
+                ->whereNull('operators.deleted_at')->get();
         $data = compact('apn_data');
         return view('pages.apn.index')->with($data);
     }
@@ -70,19 +70,8 @@ class ApnParametersController extends Controller {
          $apn_data = APN_Parameters::join('operators', 'operators.id', '=', 'apn_parameter.operator')
                 ->where('apn_parameter.id', $id)
                 ->get(['apn_parameter.*', 'operators.operator_name']);
-        $apn_data = $apn_data->all();
-        
-        // get Operators
-//        $operators = DB::table('operators')
-//                ->select('operators.*')
-//                ->leftJoin('apn_parameter', 'apn_parameter.operator', '=', 'operators.id')
-//                ->whereNull('apn_parameter.operator')
-//                ->orWhereNotNull('operators.deleted_at')
-//                ->get();
-        
-        $operators = Operators::all();
 
-        $data = compact('apn_data', 'operators');
+        $data = compact('apn_data');
         return view('pages.apn.edit')->with($data);
     }
     
@@ -94,6 +83,19 @@ class ApnParametersController extends Controller {
     
     public function deleteApn(Request $request){
         APN_Parameters::find($request->id)->delete();
+        return true;
+    }
+    
+    public function apnTrash() {
+        $apn_data = APN_Parameters::join('operators', 'operators.id', '=', 'apn_parameter.operator')
+                ->onlyTrashed()
+                    ->get(['apn_parameter.*', 'operators.operator_name']);
+        $data = compact('apn_data');
+        return view('pages.apn.trash')->with($data);
+    }
+    
+    public function restoreApn(Request $request){
+        APN_Parameters::withTrashed()->find($request->id)->restore();
         return true;
     }
     

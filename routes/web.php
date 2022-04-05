@@ -19,26 +19,29 @@ Route::get('/', [IndexController::class, 'redirect']);
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('dashboard', [IndexController::class, 'index'])->name('dashboard');
-    Route::get('users', [UserController::class, 'index']);
+    Route::get('subscribers', [UserController::class, 'index']);
     
     //APN
     Route::get('apnlist', [ApnParametersController::class, 'ApnListIndex']);
     Route::get('addApn', [ApnParametersController::class, 'addApnForm']);
     Route::post('addApn', [ApnParametersController::class, 'addApn']);
-    Route::get('editapn/{id}', [ApnParametersController::class, 'editApnForm']);
+    Route::get('editapn/{id}', [ApnParametersController::class, 'editApnForm'])->name('editapn');
     Route::post('editapn/{id}', [ApnParametersController::class, 'editApn']);
+     Route::get('apnTrash', [ApnParametersController::class, 'apnTrash']);
     
     //Operators
     Route::get('operatorlist', [OperatorController::class, 'OperatorListIndex']);
     Route::get('addOperator', [OperatorController::class, 'addOperatorForm']);
     Route::post('addOperator', [OperatorController::class, 'addOperator']);
-    Route::get('editOperator/{id}', [OperatorController::class, 'editOperatorForm']);
+    Route::get('editOperator/{id}', [OperatorController::class, 'editOperatorForm'])->name('editOperator');
     Route::post('editOperator/{id}', [OperatorController::class, 'editOperator']);
+    Route::get('operatorTrash', [OperatorController::class, 'operatorTrash']);
+    
     
      //Setting
     Route::get('settings', [AppConfigController::class, 'SettingList']);
-    Route::get('configIndex/{id}', [AppConfigController::class, 'ConfigIndex']);
-    Route::get('editSetting/{id}', [AppConfigController::class, 'editSettingForm']);
+    Route::get('configIndex/{id}', [AppConfigController::class, 'ConfigIndex'])->name('configIndex');
+    Route::get('editSetting/{id}', [AppConfigController::class, 'editSettingForm'])->name('editSetting');
     Route::post('editSetting/{id}', [AppConfigController::class, 'editSetting']);
     
     //AJAX ROUTES
@@ -46,9 +49,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     //APN
     Route::post('ajaxGetApn', [ApnParametersController::class, 'ajaxGetAPN']);
     Route::post('ajaxDeleteApn', [ApnParametersController::class, 'deleteApn']);
+    Route::post('ajaxRestoreApn', [ApnParametersController::class, 'restoreApn']);
+    
     //Operators
     Route::post('ajaxGetOperators', [OperatorController::class, 'ajaxGetOperators']);
     Route::post('ajaxDeleteOperator', [OperatorController::class, 'deleteOperator']);
+    Route::post('ajaxRestoreOperator', [OperatorController::class, 'restoreOperator']);
    
 });
 

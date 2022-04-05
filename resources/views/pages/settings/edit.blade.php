@@ -29,28 +29,30 @@
                            <div class="mb-3 row">
                                <div class="input-group">
                                    <label for="apk" class="col-md-2 col-form-label">APK File</label>
-                                   <div class="col-md-10">
+                                    <div class="col-md-10">
                                        <input type="file" class="form-control" name="apk" id="operator_logo" aria-describedby="apk" aria-label="Upload">
-                                       <div class="alert alert-primary mt-3" role="alert">
+                                       @if($settingData->config_value !== '')
+                                        <div class="alert alert-primary mt-3" role="alert">
                                            <a href="{{$settingData->config_value}}" class="alert-link">Uploaded OLD APK FILE</a>. Give it a click if you want to download.
-                                   </div>
-                               </div>
-                           </div>
+                                        </div>
+                                       @endif
+                                    </div>
+                                </div>
                            
-                           @else
+                                @else
                            
-                           <div class="mb-3 row">
-                               <label for="config_value" class="col-md-2 col-form-label">{{$settingData->config_name}}</label>
-                               <div class="col-md-10">
-                                   <input autocomplete="off" class="form-control" value="{{$settingData->config_value}}" type="text" name="config_value" id="config_value">
-                               </div>
-                           </div>
+                                <div class="mb-3 row">
+                                    <label for="config_value" class="col-md-2 col-form-label">{{$settingData->config_name}}</label>
+                                    <div class="col-md-10">
+                                        <input autocomplete="off" class="form-control" value="{{$settingData->config_value}}" type="text" name="config_value" id="config_value">
+                                    </div>
+                                </div>
+
+                                @endif
                            
-                           @endif
-                           
-                           <div>
-                               <button class="btn btn-primary" type="submit">Submit</button>
-                           </div>
+                            <div>
+                                <button class="btn btn-primary mt-6" type="submit">Submit</button>
+                            </div>
                        </div>
                    </div>
                </form>

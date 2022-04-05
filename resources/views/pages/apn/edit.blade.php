@@ -25,14 +25,9 @@
                            <div class="mb-3 row">
                                <label class="col-md-2 col-form-label">Operator</label>
                                <div class="col-md-10">
-                                   <select class="form-select" name="operator"  id="operator">
-                                       <option value="">Select</option>
-                                       
-                                       @foreach($operators as $op_value)
-                                        <option value="{{$op_value->id}}" {{$op_value->id == $value->operator ? 'selected' : ''}}>{{$op_value->operator_name}}</option>
-                                       @endforeach
-                                   </select>
+                                   <input autocomplete="off" class="form-control" value="{{$value->operator_name}}" type="text" disabled="">
                                </div>
+                              
                            </div>
                            <div class="mb-3 row">
                                <label for="apn_name" class="col-md-2 col-form-label">APN Name</label>
