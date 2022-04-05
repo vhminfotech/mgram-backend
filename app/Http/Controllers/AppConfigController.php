@@ -12,6 +12,12 @@ class AppConfigController extends Controller {
     public function SettingList() {
         $operator_data = Operators::all();
         $data = compact('operator_data');
+        
+        $data['header'] = array(
+            'breadcrumb' => array(
+                'Home' => route("dashboard"),
+                'App Settings' => 'App Settings'));
+        
         return view('pages.settings.settingIndex')->with($data);
     }
     
@@ -25,20 +31,39 @@ class AppConfigController extends Controller {
         $settingData = AppConfig::where('operator', '=', $id)->get();
         
         $data = compact('settingData');
+        
+        $data['header'] = array(
+            'breadcrumb' => array(
+                'Home' => route("dashboard"),
+                'App Settings' => url("settings"),
+                'Configuration List' =>  'Configuration List'));
         return view('pages.settings.configIndex')->with($data);
     }
     
     public function editSettingForm($id) {
         $settingData = AppConfig::find($id);
         
+        $data['header'] = array(
+            'breadcrumb' => array(
+                'Home' => route("dashboard"),
+                'App Settings' => url("settings"),
+                'App Settings' => 'App Settings'));
+        
         $data = compact('settingData');
+        $data['header'] = array(
+            'breadcrumb' => array(
+                'Home' => route("dashboard"),
+                'App Settings' => url("settings"),
+                'Configuration List' => url("configIndex", $settingData->operator),
+                'Edit Configuration' => 'Edit Configuration'));
+        
         return view('pages.settings.edit')->with($data);
     }
     
     public function editSetting(Request $request, $id) {
         $objAppConf = new AppConfig();
         $objAppConf->updateAppConfig($request, $id);
-        return back();
+        return redirect()->back();
     }
     
     public function index($operator_id){

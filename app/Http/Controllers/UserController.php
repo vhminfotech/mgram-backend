@@ -15,6 +15,12 @@ class UserController extends Controller
                 ->get(['users.*', 'operators.operator_name']);
         $user_data = $user_data->all();
         $data = compact('user_data');
+        
+        $data['header'] = array(
+            'breadcrumb' => array(
+                'Home' => route("dashboard"),
+                'Subscriber List' => 'Subscriber List'));
+        
         return view('pages.subscribers.index')->with($data);
     }
     

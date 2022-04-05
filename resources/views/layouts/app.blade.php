@@ -15,13 +15,19 @@
             <!-- Left Sidebar End -->
 
             <div class="main-content">
-                <!-- Start right Content here -->
-                 @yield('content')
-                <!-- End Page-content -->
-                
-                <!-- Start  Body-Footer -->
-                @include('include.body_footer')
-                <!-- End Body-Footer -->
+                <div class="page-content">
+                    <div class="container-fluid">
+                        @include('include.breadcrumb')
+
+                        <!-- Start right Content here -->
+                         @yield('content')
+                        <!-- End Page-content -->
+
+                        <!-- Start  Body-Footer -->
+                        @include('include.body_footer')
+                        <!-- End Body-Footer -->
+                    </div>
+                </div>
             </div>
         </div>
         <!-- END layout-wrapper -->

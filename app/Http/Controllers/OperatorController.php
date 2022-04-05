@@ -10,11 +10,22 @@ class OperatorController extends Controller {
     public function OperatorListIndex () {
         $operator_data = Operators::all();
         $data = compact('operator_data');
+        
+        $data['header'] = array(
+            'breadcrumb' => array(
+                'Home' => route("dashboard"),
+                'Operator List' => 'Operator List'));
+        
         return view('pages.operator.index')->with($data);
     }
     
     public function addOperatorForm() {
-        return view('pages.operator.add');
+        $data['header'] = array(
+            'breadcrumb' => array(
+                'Home' => route("dashboard"),
+                'Add Operator' => 'Add Operator'));
+        
+        return view('pages.operator.add')->with($data);;
     }
     
     public function addOperator(Request $request) {
@@ -31,6 +42,13 @@ class OperatorController extends Controller {
     public function editOperatorForm(Request $request, $id) {
         $operator_data = Operators::find($id);
         $data = compact('operator_data');
+        
+        $data['header'] = array(
+            'breadcrumb' => array(
+                'Home' => route("dashboard"),
+                'Operator List' => url("operatorlist"),
+                'Edit Operator' => 'Edit Operator'));
+        
         return view('pages.operator.edit')->with($data);
     }
     
@@ -49,6 +67,12 @@ class OperatorController extends Controller {
     public function operatorTrash() {
         $operator_data = Operators::onlyTrashed()->get();
         $data = compact('operator_data');
+        
+         $data['header'] = array(
+            'breadcrumb' => array(
+                'Home' => route("dashboard"),
+                'Operator Trash' => 'Operator Trash'));
+         
         return view('pages.operator.trash')->with($data);
     }
     

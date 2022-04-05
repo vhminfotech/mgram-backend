@@ -41,21 +41,27 @@ class ApnParametersController extends Controller {
     public function ApnListIndex() {
         
           $apn_data = APN_Parameters::leftJoin('operators' , 'operators.id', '=', 'apn_parameter.operator')
-                ->whereNull('operators.deleted_at')->get();
+                  ->whereNull('operators.deleted_at')
+                  ->get();
         $data = compact('apn_data');
+        
+         $data['header'] = array(
+            'breadcrumb' => array(
+                'Home' => route("dashboard"),
+                'APN List' => 'APN List'));
+         
         return view('pages.apn.index')->with($data);
     }
     
     public function addApnForm(Request $request) {
         // get Operators
-//        $operators = DB::table('operators')
-//                ->select('operators.*')
-//                ->leftJoin('apn_parameter', 'apn_parameter.operator', '=', 'operators.id')
-//                ->whereNull('apn_parameter.operator')
-//                ->orWhereNotNull('apn_parameter.deleted_at')
-//                ->get();
+
         $operators = Operators::all();
         $data = compact('operators');
+        $data['header'] = array(
+            'breadcrumb' => array(
+                'Home' => route("dashboard"),
+                'Add APN' => 'Add APN'));
         return view('pages.apn.add')->with($data);
     }
     
@@ -72,6 +78,13 @@ class ApnParametersController extends Controller {
                 ->get(['apn_parameter.*', 'operators.operator_name']);
 
         $data = compact('apn_data');
+        
+        $data['header'] = array(
+            'breadcrumb' => array(
+                'Home' => route("dashboard"),
+                'APN List' => url("apnlist"),
+                'Edit APN' => 'Edit APN'));
+        
         return view('pages.apn.edit')->with($data);
     }
     
@@ -91,6 +104,12 @@ class ApnParametersController extends Controller {
                 ->onlyTrashed()
                     ->get(['apn_parameter.*', 'operators.operator_name']);
         $data = compact('apn_data');
+        
+        $data['header'] = array(
+            'breadcrumb' => array(
+                'Home' => route("dashboard"),
+                'APN Trash' => 'APN Trash'));
+        
         return view('pages.apn.trash')->with($data);
     }
     

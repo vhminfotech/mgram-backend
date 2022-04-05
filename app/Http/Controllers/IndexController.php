@@ -17,7 +17,8 @@ class IndexController extends Controller
     }
     
     public function index() {
-        return view('pages.dashboard.index');
+        $data['header'] = array('breadcrumb' => array('Dashboard' => 'Dashboard'));
+        return view('pages.dashboard.index')->with($data);
     }
     
     
