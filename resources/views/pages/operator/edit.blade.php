@@ -34,7 +34,9 @@
                                <label for="active_status" data-on-label="On" data-off-label="Off"></label>
                            </div>
                            <div>
-                               <button class="btn btn-primary" type="submit">Submit</button>
+                               <button class="btn btn-outline-primary mr-3" type="submit">Submit</button>
+                               <div class="vr"></div>
+                               <button class="btn btn-outline-danger ml-3" type="button" onclick="window.history.back()" >Cancel</button>
                            </div>
                        </div>
                    </div>

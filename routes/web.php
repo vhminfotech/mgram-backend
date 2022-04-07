@@ -55,7 +55,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('ajaxDeleteOperator', [OperatorController::class, 'deleteOperator']);
     Route::post('ajaxRestoreOperator', [OperatorController::class, 'restoreOperator']);
    
-    //
+    //Settings
     Route::post('ajaxEditSetting', [AppConfigController::class, 'ajaxEditSetting']);
 
 });

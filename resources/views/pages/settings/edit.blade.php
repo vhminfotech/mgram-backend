@@ -40,8 +40,10 @@
                                 @endif
                            
                             <div>
-                                <button class="btn btn-primary mt-6" type="submit">Submit</button>
-                            </div>
+                               <button class="btn btn-outline-primary mr-3" type="submit">Submit</button>
+                               <div class="vr"></div>
+                               <button class="btn btn-outline-danger ml-3" type="button" onclick="window.history.back()" >Cancel</button>
+                           </div>
                        </div>
                    </div>
                </form>
