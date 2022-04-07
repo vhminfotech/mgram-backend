@@ -9,7 +9,7 @@
         <!-- end page title -->
            <div class="row">
                <div class="col-12">
-                   <form method="POST" id="edit-apn-form-validation"> @csrf
+                   <form method="POST" id="add-apn-form-validation"> @csrf
                    <div class="card">
                        <div class="card-body">
                            <div class="mb-3 row">
@@ -160,71 +160,5 @@
 @section('footer')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-
-
-<script>
-    $(document).ready(function() {
-        $("#edit-apn-form-validation").validate({
-            rules: {
-                operator : {
-                    required: true,
-                },
-                apn_name : {
-                    required: true,
-                },
-                apn: {
-                    required: true,
-                },
-                proxy: {
-                    required: true,
-                },
-                port: {
-                    required: true,
-                },
-                username: {
-                    required: true,
-                },
-                password: {
-                    required: true,
-                },
-                server: {
-                    required: true,
-                },
-                mmsc: {
-                    required: true,
-                },
-                mms_proxy: {
-                    required: true,
-                },
-                mms_port : {
-                    required: true
-                },
-                mcc: {
-                    required: true,
-                },
-                mnc: {
-                    required: true,
-                },
-                auth_type: {
-                    required: true,
-                },
-                apn_type: {
-                    required: true,
-                },
-                apn_roaming: {
-                    required: true,
-                },
-                bearer: {
-                    required: true,
-                },
-                mvno_type: {
-                    required: true,
-                },
-                mvno_value: {
-                    required: true,
-                },
-            }
-        });
-    });
-</script>
+<script src="{{asset('/backend/js/pages/apn/apn.js')}}"></script>
 @endsection

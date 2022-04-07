@@ -8,7 +8,7 @@
         <!-- end page title -->
            <div class="row">
                <div class="col-12">
-                   <form method="POST" id="edit-operator-form-validation" enctype='multipart/form-data'> @csrf
+                   <form method="POST" id="add-operator-form-validation" enctype='multipart/form-data'> @csrf
                    <div class="card">
                        <div class="card-body">
                            <div class="mb-3 row">
@@ -60,20 +60,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
-
-<script>
-    $(document).ready(function() {
-        $("#edit-operator-form-validation").validate({
-            rules: {
-                operator_logo : {
-                    required: true,
-                    extension: "png|jpe?g|gif",
-                },
-                operator_name : {
-                    required: true,
-                },
-            }
-        });
-    });
-</script>
+<script src="{{asset('/backend/js/pages/operator/operator.js')}}"></script>
 @endsection

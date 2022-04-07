@@ -60,20 +60,6 @@
 @section('footer')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="{{asset('/backend/js/pages/settings/settings.js')}}"></script>
 
-
-<script>
-    $(document).ready(function() {
-        $("#edit-apn-form-validation").validate({
-            rules: {
-                apk : {
-                    required: true,
-                },
-                config_value : {
-                    required: true,
-                }
-            }
-        });
-    });
-</script>
 @endsection

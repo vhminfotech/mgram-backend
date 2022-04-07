@@ -61,18 +61,5 @@
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
 
-<script>
-    $(document).ready(function() {
-        $("#edit-operator-form-validation").validate({
-            rules: {
-                operator_logo : {
-                    extension: "png|jpe?g|gif",
-                },
-                operator_name : {
-                    required: true,
-                },
-            }
-        });
-    });
-</script>
+<script src="{{asset('/backend/js/pages/operator/operator.js')}}"></script>
 @endsection
