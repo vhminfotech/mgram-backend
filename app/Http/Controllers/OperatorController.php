@@ -13,7 +13,7 @@ class OperatorController extends Controller {
         
         $data['header'] = array(
             'breadcrumb' => array(
-                'Home' => route("dashboard"),
+                'Dashboard' => route("dashboard"),
                 'Operator List' => 'Operator List'));
         
         return view('pages.operator.index')->with($data);
@@ -22,7 +22,7 @@ class OperatorController extends Controller {
     public function addOperatorForm() {
         $data['header'] = array(
             'breadcrumb' => array(
-                'Home' => route("dashboard"),
+                'Dashboard' => route("dashboard"),
                 'Add Operator' => 'Add Operator'));
         
         return view('pages.operator.add')->with($data);;
@@ -45,7 +45,7 @@ class OperatorController extends Controller {
         
         $data['header'] = array(
             'breadcrumb' => array(
-                'Home' => route("dashboard"),
+                'Dashboard' => route("dashboard"),
                 'Operator List' => url("operatorlist"),
                 'Edit Operator' => 'Edit Operator'));
         
@@ -70,7 +70,7 @@ class OperatorController extends Controller {
         
          $data['header'] = array(
             'breadcrumb' => array(
-                'Home' => route("dashboard"),
+                'Dashboard' => route("dashboard"),
                 'Operator Trash' => 'Operator Trash'));
          
         return view('pages.operator.trash')->with($data);

@@ -41,26 +41,29 @@ class ApnParametersController extends Controller {
     public function ApnListIndex() {
         
           $apn_data = APN_Parameters::leftJoin('operators' , 'operators.id', '=', 'apn_parameter.operator')
+                  ->select('apn_parameter.*', 'operators.operator_name')
                   ->whereNull('operators.deleted_at')
+                  ->orderBy('apn_parameter.created_at','DESC')
                   ->get();
+          
         $data = compact('apn_data');
         
          $data['header'] = array(
             'breadcrumb' => array(
-                'Home' => route("dashboard"),
+                'Dashboard' => route("dashboard"),
                 'APN List' => 'APN List'));
          
         return view('pages.apn.index')->with($data);
     }
     
-    public function addApnForm(Request $request) {
+    public function addApnForm() {
         // get Operators
 
         $operators = Operators::all();
         $data = compact('operators');
         $data['header'] = array(
             'breadcrumb' => array(
-                'Home' => route("dashboard"),
+                'Dashboard' => route("dashboard"),
                 'Add APN' => 'Add APN'));
         return view('pages.apn.add')->with($data);
     }
@@ -81,7 +84,7 @@ class ApnParametersController extends Controller {
         
         $data['header'] = array(
             'breadcrumb' => array(
-                'Home' => route("dashboard"),
+                'Dashboard' => route("dashboard"),
                 'APN List' => url("apnlist"),
                 'Edit APN' => 'Edit APN'));
         
@@ -107,7 +110,7 @@ class ApnParametersController extends Controller {
         
         $data['header'] = array(
             'breadcrumb' => array(
-                'Home' => route("dashboard"),
+                'Dashboard' => route("dashboard"),
                 'APN Trash' => 'APN Trash'));
         
         return view('pages.apn.trash')->with($data);

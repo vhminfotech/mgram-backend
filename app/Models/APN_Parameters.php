@@ -29,6 +29,7 @@ class APN_Parameters extends Model
         $objApn->mcc = $request->mcc;
         $objApn->mnc = $request->mnc;
         $objApn->auth_type = $request->auth_type;
+        $objApn->apn_protocol = $request->apn_protocol;
         $objApn->apn_type = $request->apn_type;
         $objApn->apn_roaming = $request->apn_roaming;
         $objApn->bearer = $request->bearer;
@@ -55,6 +56,7 @@ class APN_Parameters extends Model
         $objApn->mcc = empty($request->mcc) ? $objApn->mcc : $request->mcc;
         $objApn->mnc = empty($request->mnc) ? $objApn->mnc : $request->mnc;
         $objApn->auth_type = empty($request->auth_type) ? $objApn->auth_type : $request->auth_type;
+        $objApn->apn_protocol = empty($request->apn_protocol) ? $objApn->apn_protocol : $request->apn_protocol;
         $objApn->apn_type = empty($request->apn_type) ? $objApn->apn_type : $request->apn_type;
         $objApn->apn_roaming = empty($request->apn_roaming) ? $objApn->apn_roaming : $request->apn_roaming;
         $objApn->bearer = empty($request->bearer) ? $objApn->bearer : $request->bearer;

@@ -99,7 +99,6 @@
 
 <script>
 
-var table =  $("#datatable").DataTable();
 $(document).on('click', '#view_apn', function(){
     var id = $(this).attr("data-id");
     var modelBody=$('.modal-body');

@@ -102,6 +102,12 @@
                                </div>
                            </div>
                            <div class="mb-3 row">
+                               <label for="apn_protocol" class="col-md-2 col-form-label">APN Protocol</label>
+                               <div class="col-md-10">
+                                   <input autocomplete="off" class="form-control" type="text" name="apn_protocol" id="apn_protocol">
+                               </div>
+                           </div>
+                           <div class="mb-3 row">
                                <label for="apn_type" class="col-md-2 col-form-label">APN Type</label>
                                <div class="col-md-10">
                                    <input autocomplete="off" class="form-control" type="text" name="apn_type" id="apn_type">

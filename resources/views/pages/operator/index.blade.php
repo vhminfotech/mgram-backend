@@ -101,8 +101,6 @@
 <script src="{{asset('/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
 <script>
-
-var table =  $("#datatable").DataTable();
 $(document).on('click', '#view_operator', function(){
     var id = $(this).attr("data-id");
     var modelBody=$('.modal-body');

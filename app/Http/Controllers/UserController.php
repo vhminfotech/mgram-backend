@@ -18,7 +18,7 @@ class UserController extends Controller
         
         $data['header'] = array(
             'breadcrumb' => array(
-                'Home' => route("dashboard"),
+                'Dashboard' => route("dashboard"),
                 'Subscriber List' => 'Subscriber List'));
         
         return view('pages.subscribers.index')->with($data);

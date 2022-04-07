@@ -15,7 +15,7 @@ class AppConfigController extends Controller {
         
         $data['header'] = array(
             'breadcrumb' => array(
-                'Home' => route("dashboard"),
+                'Dashboard' => route("dashboard"),
                 'App Settings' => 'App Settings'));
         
         return view('pages.settings.settingIndex')->with($data);
@@ -34,7 +34,7 @@ class AppConfigController extends Controller {
         
         $data['header'] = array(
             'breadcrumb' => array(
-                'Home' => route("dashboard"),
+                'Dashboard' => route("dashboard"),
                 'App Settings' => url("settings"),
                 'Configuration List' =>  'Configuration List'));
         return view('pages.settings.configIndex')->with($data);
@@ -45,14 +45,14 @@ class AppConfigController extends Controller {
         
         $data['header'] = array(
             'breadcrumb' => array(
-                'Home' => route("dashboard"),
+                'Dashboard' => route("dashboard"),
                 'App Settings' => url("settings"),
                 'App Settings' => 'App Settings'));
         
         $data = compact('settingData');
         $data['header'] = array(
             'breadcrumb' => array(
-                'Home' => route("dashboard"),
+                'Dashboard' => route("dashboard"),
                 'App Settings' => url("settings"),
                 'Configuration List' => url("configIndex", $settingData->operator),
                 'Edit Configuration' => 'Edit Configuration'));

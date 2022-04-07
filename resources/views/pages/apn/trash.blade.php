@@ -90,8 +90,6 @@
 
 <script>
 
-var table =  $("#datatable").DataTable();
-
 $(document).on('click', '#restore_apn', function(){
     var id = $(this).attr("data-id");
     var row = $(this).closest('tr');
