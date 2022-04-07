@@ -130,6 +130,7 @@ class ApnParametersController extends Controller {
         $data .= '<tr><th scope="row">MCC</th><td>' . $apn_data[0]->mcc .'</td></tr>';
         $data .= '<tr><th scope="row">MNC</th><td>' . $apn_data[0]->mnc .'</td></tr>';
         $data .= '<tr><th scope="row">Auth Type</th><td>' . $apn_data[0]->auth_type .'</td></tr>';
+        $data .= '<tr><th scope="row">APN Protocol</th><td>' . $apn_data[0]->apn_protocol.'</td></tr>';
         $data .= '<tr><th scope="row">APN Type</th><td>' . $apn_data[0]->apn_type .'</td></tr>';
         $data .= '<tr><th scope="row">APN Roaming</th><td>' . $apn_data[0]->apn_roaming .'</td></tr>';
         $data .= '<tr><th scope="row">Bearer</th><td>' . $apn_data[0]->bearer .'</td></tr>';
