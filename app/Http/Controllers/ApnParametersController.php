@@ -68,12 +68,6 @@ class ApnParametersController extends Controller {
         return view('pages.apn.add')->with($data);
     }
     
-    public function addApn(Request $request) {
-        $objApn = new APN_Parameters();
-        $result = $objApn->addApn($request);
-        return redirect()->back();
-    }
-    
     public function editApnForm(Request $request, $id) {
         //Get APN list By Id
          $apn_data = APN_Parameters::join('operators', 'operators.id', '=', 'apn_parameter.operator')
@@ -89,12 +83,6 @@ class ApnParametersController extends Controller {
                 'Edit APN' => 'Edit APN'));
         
         return view('pages.apn.edit')->with($data);
-    }
-    
-    public function editApn(Request $request, $id) {
-        $objApn = new APN_Parameters();
-        $result = $objApn->updateApn($request, $id);
-        return redirect()->back();
     }
     
     public function deleteApn(Request $request){
@@ -151,6 +139,26 @@ class ApnParametersController extends Controller {
         $data .= '<tr><th scope="row">Updated At</th><td>' . date("d-m-Y -- H:i:s", strtotime($apn_data[0]->updated_at)) .'</td></tr>';
         $data .= '</tbody></table></div>';
         return $data;
+    }
+    
+    public function ajaxAddApn(Request $request) {
+        $objApn = new APN_Parameters();
+        $result = $objApn->AddApn($request);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public function ajaxEditAPN(Request $request){
+        $objApn = new APN_Parameters();
+        $result = $objApn->updateApn($request);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
     }
     
 }

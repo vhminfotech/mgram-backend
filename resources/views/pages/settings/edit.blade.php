@@ -7,7 +7,8 @@
         <!-- end page title -->
            <div class="row">
                <div class="col-12">
-                   <form method="POST" id="edit-apn-form-validation"  enctype='multipart/form-data'> @csrf
+                   <form method="POST" id="edit-setting-form-validation"  enctype='multipart/form-data'> @csrf
+                       <input name="id" value="{{$settingData->id}}" type="hidden">
                    <div class="card">
                        <div class="card-body">
                            <input name="operator" type="hidden" value="{{$settingData->operator}}">

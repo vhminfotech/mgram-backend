@@ -9,6 +9,7 @@
            <div class="row">
                <div class="col-12">
                    <form method="POST" id="edit-operator-form-validation" enctype='multipart/form-data'> @csrf
+                       <input name="id" value="{{$operator_data->id}}" type="hidden">
                    <div class="card">
                        <div class="card-body">
                            <div class="mb-3 row">
@@ -59,7 +60,5 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-
-
 <script src="{{asset('/backend/js/pages/operator/operator.js')}}"></script>
 @endsection

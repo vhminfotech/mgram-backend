@@ -12,8 +12,8 @@ class AppConfig extends Model
     protected $table = 'app_config';
     
     
-     public function updateAppConfig($request, $id) {
-        $objAppConfig = AppConfig::find($id);
+     public function updateAppConfig($request) {
+        $objAppConfig = AppConfig::find($request->id);
         
         if($objAppConfig->config_name === 'apk'){
 
@@ -22,7 +22,7 @@ class AppConfig extends Model
                 $request->apk->move(public_path('files/apk'), $apkName);
                 $apkPath = '/files/apk/' . $apkName;
                 $objAppConfig->config_value = $apkPath;
-                $objAppConfig->save();
+                return $objAppConfig->save();
             }
         }else{
             $objAppConfig->config_value = $request->config_value;

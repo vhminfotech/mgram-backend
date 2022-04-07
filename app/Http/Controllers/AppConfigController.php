@@ -60,10 +60,14 @@ class AppConfigController extends Controller {
         return view('pages.settings.edit')->with($data);
     }
     
-    public function editSetting(Request $request, $id) {
+    public function ajaxEditSetting(Request $request) {
         $objAppConf = new AppConfig();
-        $objAppConf->updateAppConfig($request, $id);
-        return redirect()->back();
+        $result = $objAppConf->updateAppConfig($request);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     public function index($operator_id){

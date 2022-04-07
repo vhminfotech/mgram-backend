@@ -28,17 +28,6 @@ class OperatorController extends Controller {
         return view('pages.operator.add')->with($data);;
     }
     
-    public function addOperator(Request $request) {
-        
-        $request->validate([
-            'operator_logo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
-        
-        $objApn = new Operators();
-        $result = $objApn->addOperator($request);
-        return redirect()->back();
-    }
-    
     public function editOperatorForm(Request $request, $id) {
         $operator_data = Operators::find($id);
         $data = compact('operator_data');
@@ -50,13 +39,6 @@ class OperatorController extends Controller {
                 'Edit Operator' => 'Edit Operator'));
         
         return view('pages.operator.edit')->with($data);
-    }
-    
-    public function editOperator(Request $request, $id) {
-        
-        $objOperator = new Operators();
-        $result = $objOperator->updateOperator($request, $id);
-        return redirect()->back();
     }
     
     public function deleteOperator(Request $request){
@@ -93,6 +75,31 @@ class OperatorController extends Controller {
         $data .= '<tr><th scope="row" style="text-align:center">Updated At</th><td style="text-align:center">' . date("d-m-Y -- H:i:s", strtotime($operator_data->updated_at)) .'</td></tr>';
         $data .= '</tbody></table></div>';
         return $data;
+    }
+    
+    public function ajaxAddOperators(Request $request) {
+        $request->validate([
+            'operator_logo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        
+        $objApn = new Operators();
+        $result = $objApn->addOperator($request);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public function ajaxEditOperators(Request $request) {
+        
+        $objOperator = new Operators();
+        $result = $objOperator->updateOperator($request);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     public function index(){

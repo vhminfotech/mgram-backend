@@ -40,8 +40,8 @@ class APN_Parameters extends Model
         return $objApn->save();
     }
     
-     public function updateApn($request, $id){
-        $objApn = APN_Parameters::find($id);
+     public function updateApn($request){
+        $objApn = APN_Parameters::find($request->id);
         $objApn->operator = empty($request->operator) ? $objApn->operator : $request->operator;
         $objApn->apn_name = empty($request->apn_name) ? $objApn->apn_name : $request->apn_name;
         $objApn->apn = empty($request->apn) ? $objApn->apn : $request->apn;

@@ -13,6 +13,8 @@
 }
     
 </style>
+        <link href="{{asset('/backend/libs/toastr/build/toastr.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+
         <!-- end page title -->
         <div class="row">
             <div class="col-12">
@@ -96,54 +98,6 @@
 <script src="{{asset('/backend/js/pages/datatables.init.js')}}"></script>  
 <!-- Sweet Alerts js -->
 <script src="{{asset('/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
-
-<script>
-
-$(document).on('click', '#view_apn', function(){
-    var id = $(this).attr("data-id");
-    var modelBody=$('.modal-body');
-    $.ajax({
-        type: "POST",
-        headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()},
-        url: baseurl + "ajaxGetApn",
-        data: {'id': id},
-        success: function (html) {
-            modelBody.empty();
-            modelBody.append(html);
-            $('#apnModal').modal('show');
-        }
-    });
-});
-
-$(document).on('click', '#delete_apn', function(){
-    var id = $(this).attr("data-id");
-    var row = $(this).closest('tr');
-    Swal.fire({
-          title: "Are you sure?",
-//          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: !0,
-          confirmButtonColor: "#34c38f",
-          cancelButtonColor: "#f46a6a",
-          confirmButtonText: "Yes, delete it!",
-        }).then(function (respose) {
-            if(respose.isConfirmed){
-                $.ajax({
-                    type: "POST",
-                    headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()},
-                    url: baseurl + "ajaxDeleteApn",
-                    data: {'id': id},
-                    success: function (response) {
-                        if(response == 1){
-                            Swal.fire("Deleted!", "Your record has been deleted.", "success");
-                            table.row( row ).remove().draw();
-                        }else{
-                            Swal.fire("Deleted!", "Your file has been deleted.", "success");
-                        }
-                    }
-                });
-            }
-        });
-    });
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="{{asset('/backend/js/pages/apn/apn.js')}}"></script>
 @endsection

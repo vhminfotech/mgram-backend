@@ -30,11 +30,10 @@ class Operators extends Model
         $appConf->createAppConfig($objOperator->id);
         
         return $objOperator;
-        
     }
     
-    public function updateOperator($request, $id) {
-        $objOperator = Operators::find($id);
+    public function updateOperator($request) {
+        $objOperator = Operators::find($request->id);
         
         if ($request->file()) {
             $imageName = 'op_' .time().'.'.$request->operator_logo->extension();  
@@ -47,7 +46,7 @@ class Operators extends Model
         $objOperator->active_status = $request->active_status == 'on' ? 1 : 0;
         $objOperator->updated_at = date("Y-m-d h:i:s");
         
-        $appConf = AppConfig::where('operator', '=', $id)->first();
+        $appConf = AppConfig::where('operator', '=', $request->id)->first();
         
         if($appConf === NULL){
             $appConf = new AppConfig();

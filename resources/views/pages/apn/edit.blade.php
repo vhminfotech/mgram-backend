@@ -11,6 +11,7 @@
            <div class="row">
                <div class="col-12">
                    <form method="POST" id="edit-apn-form-validation"> @csrf
+                       <input name="id" value="{{$value->id}}" type="hidden">
                    <div class="card">
                        <div class="card-body">
                            <div class="mb-3 row">
@@ -155,7 +156,6 @@
 @endsection
 
 @section('footer')
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <script src="{{asset('/backend/js/pages/apn/apn.js')}}"></script>
 @endsection

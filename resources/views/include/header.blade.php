@@ -14,6 +14,8 @@
         <!-- App Css-->
         <link href="{{asset('/backend/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
         
+        <link href="{{asset('/backend/libs/toastr/build/toastr.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+        
         <script>var baseurl = "{{ asset('/') }}";</script>
 
 
