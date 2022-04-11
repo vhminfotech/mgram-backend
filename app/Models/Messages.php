@@ -12,7 +12,7 @@ class Messages extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    
+
     public function createMessages($request, $thread_id) {
         $objMessages = new Messages();
         $objMessages->thread_id = $thread_id;
@@ -22,17 +22,17 @@ class Messages extends Model
         $objMessages->attachment_id = $request->attachment_id ? $request->attachment_id : NULL;
         $objMessages->sent_date = date("Y-m-d h:i:s");
         $objMessages->save();
-        
+
         $objThread = new Thread();
         $objThread->updateThreadLateDateSent($thread_id);
-        
+
         $objThread = new ThreadParticipants();
         $objThread->updateThreadParticipantLateDateSent($thread_id);
         $objThread->setReadCount($thread_id);
-        
+
         return $objMessages;
     }
-    
+
     public function getMessages($thread_id) {
         $data = DB::table('messages')
                 ->select('messages.*', 'messages.id as msg_id', 'attachments.*' )
@@ -55,7 +55,7 @@ class Messages extends Model
         }
         return $response;
     }
-    
+
     public function getLastSender($thread_id){
         $data = DB::table('messages')
                 ->select('sender_id')
@@ -64,26 +64,26 @@ class Messages extends Model
                 ->first();
         return $data->sender_id;
     }
-    
+
     public function getLastMessage($thread_id){
         $data = DB::table('messages')
                 ->select('text')
                 ->orderBy('sent_date', 'desc')->where('thread_id', '=', $thread_id)->first();
         return $data->text;
     }
-    
+
     public function getLastMessageSentDate($thread_id){
         $data = DB::table('messages')
                 ->select('sent_date')
                 ->orderBy('sent_date', 'desc')->where('thread_id', '=', $thread_id)->first();
         return $data->sent_date;
     }
-    
+
     public function msgRespose($thread_id){
-        
+
         $objTP = new ThreadParticipants();
         $objThread = new Thread();
-        
+
         $data = array(
             'id' => $thread_id,
             'last_sender_id' => $this->getLastSender($thread_id),
@@ -98,8 +98,6 @@ class Messages extends Model
             'recipients_count' => $objTP->getRecipientsCount($thread_id),
             'messages' => $this->getMessages($thread_id)
         );
-        
         return $data;
     }
-    
 }

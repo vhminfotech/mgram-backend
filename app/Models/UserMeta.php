@@ -9,17 +9,17 @@ use DB;
 class UserMeta extends Model
 {
     use HasFactory;
-    
-    
+
+
     protected $fillable = [
         'user_id',
     ];
-    
+
     public function addUserMeta($request){
         $objUserMeta = UserMeta::create($request);
         return $objUserMeta ;
     }
-    
+
     public function updateUserMeta($request){
         $userMetaCheck = DB::table('user_metas')->where('user_id', '=', auth('api')->user()->id)->get();
         $objUserMeta = UserMeta::find($userMetaCheck[0]->id);
@@ -30,9 +30,9 @@ class UserMeta extends Model
         $objUserMeta->save();
         return $objUserMeta;
     }
-    
-    public function getUserMeta($request) {
- 
+
+    public function getUserMeta() {
+
          $userMetaCheck = DB::table('user_metas')
                  ->where('user_id', '=', auth('api')->user()->id)->get();
          return $userMetaCheck;

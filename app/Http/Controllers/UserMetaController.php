@@ -9,13 +9,11 @@ class UserMetaController extends Controller
 {
     public function updateUserMeta(Request $request) {
         $objUserMeta = new UserMeta();
-        $result = $objUserMeta->updateUserMeta($request);
-        return $result;
+        return $objUserMeta->updateUserMeta($request);
     }
-    
+
     public function getUserMeta(Request $request) {
         $objUserMeta = new UserMeta();
-        $result = $objUserMeta->getUserMeta($request);
-        return $result;
+        return $objUserMeta->getUserMeta($request);
     }
 }
