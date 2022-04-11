@@ -40,7 +40,10 @@ class Thread extends Model
                 ->where('thread_participants.user_id', '=', auth('api')->user()->id)
                 ->get();
 
-         $respose = [];
+        if ($data->isEmpty()){
+            $respose = [ 'status' => '1', 'message' => 'No record found'];
+        }
+
         foreach($data as $value){
             $respose[] = $this->threadResponse($value->id);
         }

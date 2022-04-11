@@ -25,7 +25,7 @@ class Messages extends Model
 
         $objThread = new Thread();
         $objThread->updateThreadLateDateSent($thread_id);
-
+//
         $objThread = new ThreadParticipants();
         $objThread->updateThreadParticipantLateDateSent($thread_id);
         $objThread->setReadCount($thread_id);
