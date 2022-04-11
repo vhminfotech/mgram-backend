@@ -40,6 +40,7 @@ class Thread extends Model
                 ->where('thread_participants.user_id', '=', auth('api')->user()->id)
                 ->get();
 
+         $respose = [];
         foreach($data as $value){
             $respose[] = $this->threadResponse($value->id);
         }
