@@ -73,8 +73,8 @@ class ThreadParticipants extends Model
 
     public function updateThreadParticipantLateDateSent($thread_id) {
         $objTP = ThreadParticipants::where('thread_id', '=', $thread_id)
-            ->where('user_id', '=', auth('api')->user()->id)
-            ->first();
+            ->where('user_id', '=', auth('api')->user()->id)->first();
+
         $objTP->last_sent_date = date("Y-m-d h:i:s");
         return $objTP->save();
     }

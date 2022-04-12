@@ -25,9 +25,9 @@ class Messages extends Model
         $objThread = new Thread();
         $objThread->updateThreadLateDateSent($thread_id);
 
-        $objThread = new ThreadParticipants();
-        $objThread->updateThreadParticipantLateDateSent($thread_id);
-        $objThread->setReadCount($thread_id);
+        $objTP = new ThreadParticipants();
+        $objTP->updateThreadParticipantLateDateSent($thread_id);
+        $objTP->setReadCount($thread_id);
 
         return $objMessages;
     }
@@ -88,7 +88,7 @@ class Messages extends Model
             'last_sender_id' => $this->getLastSender($thread_id),
             'message' => $this->getLastMessage($thread_id),
             'date' => $this->getLastMessageSentDate($thread_id),
-            'unread_count' => $objTP->getReadCount($thread_id),
+//            'unread_count' => $objTP->getReadCount($thread_id),
             'recipients_ids' => $objTP->getRecipientsIds($thread_id),
             'current_user' => auth('api')->user()->id,
             'is_group' => $objThread->checkIsGroup($thread_id),

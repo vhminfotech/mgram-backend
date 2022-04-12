@@ -16,14 +16,18 @@ class Thread extends Model
             $arr = array_values($request->user_id);
 
             $data = DB::table('thread_participants')
-                    ->select('thread_participants.*')
-                    ->join('threads', 'threads.id', '=', 'thread_participants.thread_id')
-                    ->where('threads.thread_type', '=', 'personal')
-                    ->whereIn('thread_participants.user_id', [$arr[0], $arr[1]])
-                    ->get();
+                ->select(DB::raw('thread_participants.thread_id, COUNT(thread_participants.thread_id) AS NumOccurrences'))
+                ->join('threads', 'threads.id', '=', 'thread_participants.thread_id')
+                ->where('threads.thread_type', '=', 'personal')
+                ->whereIn('thread_participants.user_id', [$arr[0], $arr[1]])
+                ->groupBy('thread_participants.thread_id')
+                ->having(DB::raw('count(thread_participants.thread_id)'), '>', 1)
+                ->first();
 
-            if(count($data) === 2 ){
-                return array('thread' => 'old' , 'thread_id' => $data[0]->thread_id);
+            $data = get_object_vars($data);
+
+            if($data['NumOccurrences'] === 2 ){
+                return array('thread' => 'old' , 'thread_id' => $data['thread_id']);
             }else{
                 return array('thread' => 'new' , 'thread_id' => $this->createNewThread($request));
             }
