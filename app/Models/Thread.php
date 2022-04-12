@@ -50,9 +50,21 @@ class Thread extends Model
         return $respose;
     }
 
+    public function GetRecipientUser($data){
+        if (in_array(auth('api')->user()->id, $data)){
+            unset($data[array_search(auth('api')->user()->id,$data)]);
+        }
+//        foreach ($data as $val){
+//            $array[] = $val;
+//        }
+        return $data;
+    }
+
     public function threadResponse($thread_id) {
         $objTP = new ThreadParticipants();
         $objMsg = new Messages();
+
+        $objUser = new User();
 
         $data = array(
             'id' => $thread_id,
@@ -62,12 +74,28 @@ class Thread extends Model
             'unread_count' => 0,
             'recipients_ids' => $objTP->getRecipientsIds($thread_id),
             'current_user' => auth('api')->user()->id,
+            'recipient_user' => $this->getUsers($this->GetRecipientUser($objTP->getRecipientsIds($thread_id))),
             'is_group' => $this->checkIsGroup($thread_id),
             'group_name' => $this->getGroupName($thread_id),
             'group_avatar' => $this->getGroupAvatar($thread_id),
             'recipients_count' => $objTP->getRecipientsCount($thread_id),
         );
         return $data;
+    }
+
+    public function getUsers($user_ids){
+        foreach ($user_ids as $user_id){
+            $objUser = User::find($user_id);
+            $arr[] = [
+                'id' => $objUser->id,
+                'name' => $objUser->name,
+                'operator' => $objUser->operator,
+                'MSISDN' => $objUser->MSISDN,
+                'chat_feature' => $objUser->chat_feature,
+                'user_status' => $objUser->user_status,
+            ];
+        }
+        return $arr;
     }
 
     public function updateThreadLateDateSent($thread_id) {

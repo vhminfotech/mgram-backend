@@ -39,10 +39,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     public function updateLastActive($user_id){
         $objUser = User::find($user_id);
         $objUser->last_active = date("Y-m-d h:i:s");
         $objUser->save();
     }
+
+
 }
