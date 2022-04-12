@@ -13,16 +13,16 @@ class AttachmentController extends Controller
             'file' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'file_type' => 'required',
         ]);
-        
+
         $fileName = 'op_' .time().'.'.$request->file->extension();
         $request->file->move(public_path('images/attachments/'  .date("Y") . '/' . date("m") . '/'), $fileName);
         $file_path = '/images/attachments/' .date("Y") . '/' . date("m") . '/' . $fileName;
-        
+
         $objAttachment = new Attachment();
         $objAttachment->url = $file_path;
         $objAttachment->file_type = $request->file_type;
         $objAttachment->created_at = date("Y-m-d h:i:s");
-        
+
         if($objAttachment->save()){
             $data = array(
                 'attachment_id' => $objAttachment->id,
@@ -33,22 +33,20 @@ class AttachmentController extends Controller
             return $data;
         }
     }
-    
+
     public function getAttachment($id) {
         $objAttachment = Attachment::find($id);
         if($objAttachment !== NULL){
-            $data = array(
+            return array(
                 'attachment_id' => $objAttachment->id,
                 'attachment_url' => url('/') . $objAttachment->url,
                 'file_type' => $objAttachment->file_type,
                 'created_at' => $objAttachment->created_at,
             );
-            return $data;
         }else{
-            $data = array(
+            return array(
                 'message' => 'No Image Found',
             );
-            return $data;
         }
     }
 }

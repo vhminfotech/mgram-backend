@@ -64,9 +64,7 @@ class Thread extends Model
         $objTP = new ThreadParticipants();
         $objMsg = new Messages();
 
-        $objUser = new User();
-
-        $data = array(
+        return array(
             'id' => $thread_id,
             'last_sender_id' => $objMsg->getLastSender($thread_id),
             'message' => $objMsg->getLastMessage($thread_id),
@@ -80,7 +78,6 @@ class Thread extends Model
             'group_avatar' => $this->getGroupAvatar($thread_id),
             'recipients_count' => $objTP->getRecipientsCount($thread_id),
         );
-        return $data;
     }
 
     public function getUsers($user_ids){
@@ -117,7 +114,7 @@ class Thread extends Model
         $data = DB::table('threads')
                     ->select('thread_type')
                     ->where('id', '=', $thread_id)->first();
-        return $data->thread_type === 'room' ? true : false;
+        return $data->thread_type === 'room';
     }
 
     public function getGroupName($thread_id) {

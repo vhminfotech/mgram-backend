@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Thread;
 use App\Models\ThreadParticipants;
 use DB;
 
@@ -25,7 +24,7 @@ class Messages extends Model
 
         $objThread = new Thread();
         $objThread->updateThreadLateDateSent($thread_id);
-//
+
         $objThread = new ThreadParticipants();
         $objThread->updateThreadParticipantLateDateSent($thread_id);
         $objThread->setReadCount($thread_id);
@@ -48,7 +47,7 @@ class Messages extends Model
                 'sender_id' => $msg->sender_id,
                 'message' => $msg->text,
                 'date_sent' => $msg->sent_date,
-                'is_attachment' => $msg->is_attachment === 1 ? true : false,
+                'is_attachment' => $msg->is_attachment === 1,
                 'attachment_id' => $msg->attachment_id,
                 'url' => $msg->is_attachment === 1 ?  url('/') . $msg->url : false,
             );
