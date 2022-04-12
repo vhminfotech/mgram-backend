@@ -81,22 +81,29 @@ class Messages extends Model
     public function msgRespose($thread_id){
 
         $objTP = new ThreadParticipants();
-        $objThread = new Thread();
-
-        $data = array(
-            'id' => $thread_id,
-            'last_sender_id' => $this->getLastSender($thread_id),
-            'message' => $this->getLastMessage($thread_id),
-            'date' => $this->getLastMessageSentDate($thread_id),
-//            'unread_count' => $objTP->getReadCount($thread_id),
-            'recipients_ids' => $objTP->getRecipientsIds($thread_id),
-            'current_user' => auth('api')->user()->id,
-            'is_group' => $objThread->checkIsGroup($thread_id),
-            'group_name' => $objThread->getGroupName($thread_id),
-            'group_avatar' => $objThread->getGroupAvatar($thread_id),
-            'recipients_count' => $objTP->getRecipientsCount($thread_id),
-            'messages' => $this->getMessages($thread_id)
-        );
-        return $data;
+        // $objThread = new Thread();
+        
+        $objThread = Thread::find($thread_id);
+        
+            if($objThread !== NULL){
+            $data = array(
+                'id' => $thread_id,
+                'last_sender_id' => $this->getLastSender($thread_id),
+                'message' => $this->getLastMessage($thread_id),
+                'date' => $this->getLastMessageSentDate($thread_id),
+                'unread_count' => $objTP->getReadCount($thread_id),
+                'recipients_ids' => $objTP->getRecipientsIds($thread_id),
+                'current_user' => auth('api')->user()->id,
+                'is_group' => $objThread->checkIsGroup($thread_id),
+                'group_name' => $objThread->getGroupName($thread_id),
+                'group_avatar' => $objThread->getGroupAvatar($thread_id),
+                'recipients_count' => $objTP->getRecipientsCount($thread_id),
+                'messages' => $this->getMessages($thread_id)
+            );
+            return $data;
+        }else{
+            return array('status' => false, 'message' => 'no record found');
+        }
+        
     }
 }

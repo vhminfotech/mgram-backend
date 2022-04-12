@@ -23,14 +23,21 @@ class Thread extends Model
                 ->groupBy('thread_participants.thread_id')
                 ->having(DB::raw('count(thread_participants.thread_id)'), '>', 1)
                 ->first();
-
-            $data = get_object_vars($data);
-
-            if($data['NumOccurrences'] === 2 ){
-                return array('thread' => 'old' , 'thread_id' => $data['thread_id']);
-            }else{
+                
+                if(!is_null($data)){
+                    $data = get_object_vars($data);
+                    
+                    if($data['NumOccurrences'] === 2 ){
+                        return array('thread' => 'old' , 'thread_id' => $data['thread_id']);
+                    }
+                    else{
+                        return array('thread' => 'new' , 'thread_id' => $this->createNewThread($request));
+                    }
+                    
+                }
+                
                 return array('thread' => 'new' , 'thread_id' => $this->createNewThread($request));
-            }
+            
         }else{
             return array('thread' => 'new' , 'thread_id' => $this->createNewThread($request));
         }
