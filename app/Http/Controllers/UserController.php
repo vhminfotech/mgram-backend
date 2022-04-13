@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Operators;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserMeta;
@@ -12,9 +13,15 @@ class UserController extends Controller
 
     public function index() {
         $user_data = User::join('operators', 'operators.id', '=', 'users.operator')
+            ->orderBy('created_at', 'desc')
                 ->get(['users.*', 'operators.operator_name']);
         $user_data = $user_data->all();
-        $data = compact('user_data');
+
+        $get_last_record_date = User::select('created_at')->orderBy('created_at', 'asc')->limit(1)->first();
+
+        $get_operators = Operators::select('operator_name')->get();
+
+        $data = compact('user_data', 'get_last_record_date', 'get_operators');
 
         $data['header'] = array(
             'breadcrumb' => array(

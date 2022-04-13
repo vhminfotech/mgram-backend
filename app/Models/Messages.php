@@ -81,10 +81,8 @@ class Messages extends Model
     public function msgRespose($thread_id){
 
         $objTP = new ThreadParticipants();
-        // $objThread = new Thread();
-        
         $objThread = Thread::find($thread_id);
-        
+
             if($objThread !== NULL){
             $data = array(
                 'id' => $thread_id,
@@ -104,6 +102,6 @@ class Messages extends Model
         }else{
             return array('status' => false, 'message' => 'no record found');
         }
-        
+
     }
 }
