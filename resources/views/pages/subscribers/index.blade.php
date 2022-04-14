@@ -7,11 +7,10 @@
         <!-- end page title -->
         <div class="row">
             <div class="col-12">
+                <div class="container">
                 <div class="col-8">
                 <div class="row">
-                    <div class="col-sm-4">
-                        <div id="reportrange" class="btn btn-success"><span></span> <b class="caret"></b></div>
-                    </div>
+
                     <div class="col-sm">
                         <select id="operators" class="form-control valid">
                             <option value="">Select Operator</option>
@@ -20,10 +19,14 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="col-sm">
+                        <div id="reportrange" class="btn btn-success"><span>Date Filter</span><b class="caret"></b></div>
+                    </div>
 
                     <div class=" col-sm">
-                        <button id="filter" class="btn btn-primary">Filter</button>
+                        <button id="filter" class="btn btn-primary"><span class="bx bx-search-alt"></span></button>
                     </div>
+                </div>
                 </div>
                 </div>
 
