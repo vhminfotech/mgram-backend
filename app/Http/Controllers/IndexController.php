@@ -9,7 +9,6 @@ use DB;
 
 class IndexController extends Controller
 {
-
     public function redirect() {
         if(Auth::id()){
             return redirect('/dashboard');
@@ -18,9 +17,10 @@ class IndexController extends Controller
         }
     }
 
-    public function index() {
+    public function ajaxGetYear(Request $request){
+
         $users = User::select(DB::raw('DATE_FORMAT(created_at, "%m") as month, count(id) as total'))
-            ->whereBetween('created_at', ['2022-01-01 00:00:00', '2022-12-31 23:59:59'])
+            ->whereBetween('created_at', [$request['date'] . '-01-01 00:00:00', $request['date'] . '-12-31 23:59:59'])
             ->groupBy('month')
             ->orderBy('month')
             ->pluck('total', 'month')
@@ -34,12 +34,11 @@ class IndexController extends Controller
         foreach ($monthly_users_arr as $user_count){
             $monthly_users[] = $user_count;
         }
+        return $monthly_users;
+    }
 
-        $data = compact('monthly_users');
-
+    public function index() {
         $data['header'] = array('breadcrumb' => array('Dashboard' => 'Dashboard'));
         return view('pages.dashboard.index')->with($data);
     }
-
-
 }
