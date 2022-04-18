@@ -2,6 +2,7 @@
 @section('title', 'Dashboard')
 
 @section('content')
+    <link href="{{asset('/backend/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <div class="row">
         <div class="col-xl-12">
             <div class="card">
